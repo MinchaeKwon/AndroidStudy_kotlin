@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.androidstudy_kotlin.databinding.ActivityMainBinding
 
-// View Biding 사용
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -18,6 +17,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnViewBiding.setOnClickListener {
             startActivity(Intent(this, ViewActivity::class.java))
+        }
+
+        binding.btnDataBinding.setOnClickListener {
+            startActivity(Intent(this, DataActivity::class.java));
+        }
+
+        binding.btnRoom.setOnClickListener {
+            startActivity(Intent(this, RoomActivity::class.java))
         }
     }
 }
