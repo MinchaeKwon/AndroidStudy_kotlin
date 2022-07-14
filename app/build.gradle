@@ -73,4 +73,13 @@ dependencies {
 
     // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+
+    def nav_version = "2.5.0"
+
+    // navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha01"
 }
