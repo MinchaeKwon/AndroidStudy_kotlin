@@ -7,30 +7,51 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.androidstudy_kotlin.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainFragment : Fragment() {
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+
+//        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         navController = Navigation.findNavController(view)
-        btn_nav.setOnClickListener {
+
+        binding.btnViewBinding.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_viewFragment)
+        }
+
+        binding.btnDataBinding.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_dataFragment)
+        }
+
+        binding.btnRoom.setOnClickListener {
+            navController.navigate(R.id.action_mainFragment_to_roomFragment)
+        }
+
+        binding.btnNav.setOnClickListener {
             navController.navigate(R.id.action_mainFragment_to_firstFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -33,7 +33,5 @@ class MainActivity : AppCompatActivity() {
 //        binding.btnRoom.setOnClickListener {
 //            startActivity(Intent(this, RoomActivity::class.java))
 //        }
-//
-//        navController = binding.btnNav.findNavController()
     }
 }
