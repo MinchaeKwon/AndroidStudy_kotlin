@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin
+package com.example.androidstudy_kotlin.view.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentMainBinding
-import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainFragment : Fragment() {

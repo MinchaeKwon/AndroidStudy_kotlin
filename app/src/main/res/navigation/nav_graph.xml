@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.androidstudy_kotlin.MainFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.androidstudy_kotlin.FirstFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
-        android:name="com.example.androidstudy_kotlin.ViewFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.ViewFragment"
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/dataFragment"
-        android:name="com.example.androidstudy_kotlin.DataFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.DataFragment"
         android:label="fragment_data"
         tools:layout="@layout/fragment_data" >
         <action
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.example.androidstudy_kotlin.RoomFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.RoomFragment"
         android:label="fragment_room"
         tools:layout="@layout/fragment_room" >
         <action

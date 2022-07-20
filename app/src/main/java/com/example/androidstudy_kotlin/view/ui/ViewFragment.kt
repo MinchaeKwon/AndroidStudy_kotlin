@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin
+package com.example.androidstudy_kotlin.view.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentViewBinding
-import com.example.androidstudy_kotlin.viewmodel.MainViewModel
+import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
 
 // View Binding 사용
 class ViewFragment : Fragment() {

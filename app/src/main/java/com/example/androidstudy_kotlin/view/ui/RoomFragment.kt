@@ -1,10 +1,11 @@
-package com.example.androidstudy_kotlin
+package com.example.androidstudy_kotlin.view.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.androidstudy_kotlin.AppDatabase
 import com.example.androidstudy_kotlin.data.User
 import com.example.androidstudy_kotlin.databinding.FragmentRoomBinding
 import kotlinx.coroutines.CoroutineScope

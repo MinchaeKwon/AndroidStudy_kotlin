@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.viewmodel
+package com.example.androidstudy_kotlin.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
