@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.androidstudy_kotlin.AppDatabase
+import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.data.User
 import com.example.androidstudy_kotlin.databinding.FragmentRoomBinding
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +18,8 @@ import kotlinx.coroutines.launch
 
 // Room + Coroutine 사용
 class RoomFragment : Fragment() {
+
+    private lateinit var navController: NavController
 
     private var _binding: FragmentRoomBinding? = null
     private val binding get() = _binding!!
@@ -43,6 +48,11 @@ class RoomFragment : Fragment() {
         binding.btnSaveUser.setOnClickListener {
             addUser()
             getUserList()
+        }
+
+        navController = Navigation.findNavController(view)
+        binding.btnPrev.setOnClickListener {
+            navController.navigate(R.id.action_roomFragment_to_mainFragment)
         }
     }
 

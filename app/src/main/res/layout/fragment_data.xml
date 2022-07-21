@@ -6,17 +6,17 @@
     <data>
         <variable
             name="counter1"
-            type="com.example.androidstudy_kotlin.DataActivity" />
+            type="com.example.androidstudy_kotlin.view.ui.DataFragment" />
 
         <variable
             name="counter2"
-            type="com.example.androidstudy_kotlin.viewmodel.MainViewModel" />
+            type="com.example.androidstudy_kotlin.view.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.DataActivity">
+        tools:context=".view.ui.DataFragment">
 
         <TextView
             android:id="@+id/textView2"
