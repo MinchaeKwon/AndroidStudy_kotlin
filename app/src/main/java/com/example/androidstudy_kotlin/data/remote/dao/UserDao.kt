@@ -1,7 +1,7 @@
-package com.example.androidstudy_kotlin.dao
+package com.example.androidstudy_kotlin.data.remote.dao
 
 import androidx.room.*
-import com.example.androidstudy_kotlin.data.User
+import com.example.androidstudy_kotlin.data.model.User
 
 @Dao
 interface UserDao {

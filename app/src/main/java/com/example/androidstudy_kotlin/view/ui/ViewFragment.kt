@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentViewBinding
-import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
+import com.example.androidstudy_kotlin.view.viewmodel.TestViewModel
 
 // View Binding 사용
 class ViewFragment : Fragment() {
@@ -24,7 +24,7 @@ class ViewFragment : Fragment() {
     private var num = 0
 
     // 2. View Binding + ViewModel
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: TestViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

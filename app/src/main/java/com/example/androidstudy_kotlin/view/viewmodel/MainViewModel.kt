@@ -1,36 +1,33 @@
 package com.example.androidstudy_kotlin.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.data.remote.dto.Body
+import com.example.androidstudy_kotlin.data.remote.dto.Dto
+import com.example.androidstudy_kotlin.data.AppRepository
+import com.example.androidstudy_kotlin.view.base.BaseViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    // 2. View Binding, Data Binding + ViewModel
-    private var num1 = 0
+class MainViewModel(private val appRepository: AppRepository) : BaseViewModel() {
 
-    fun increase1() {
-        num1++
+    var subwayInfo = MutableLiveData<Dto<Body>>()
+
+    // PagingData 요청(캐시도 가능)
+    fun getTrainInfoPaging(): Flow<PagingData<Item>> {
+        val param = HashMap<String, String>().apply {
+            put("serviceKey", "nxD3Vj9Pl5I+JWTkXyufXja0SKBR7Idx5Lh34+fdeAuXLX06TbVgtXuqucPHXiUUebvJ19O9N5pHdOA6K976ZQ==")
+            put("pageNo", "1")
+            put("numOfRows", "10")
+            put("_type", "json")
+            put("subwayStationName", "")
+        }
+
+        return appRepository.getTrainInfoPaing(param)
     }
 
-    fun getNum1(): String {
-        return num1.toString();
-    }
-//    fun getNum1(): String = num.toString()
-//    fun getNum1() = num.toString()
 
-
-    // 3. View Binding, Data Binding + ViewModel + LiveData
-    private var num2 = MutableLiveData<Int>()
-    // private var num2 = MutableLiveData<Int>(0);
-
-    init {
-        num2.value = 0
-    }
-
-    fun increase2() {
-        num2.value = num2.value?.plus(1) // num2가 null이면 plus() 메소드호출이 무시되고 아니면 메소드 정상 실행
-    }
-
-    fun getNum2(): MutableLiveData<Int> {
-        return num2
-    }
 }

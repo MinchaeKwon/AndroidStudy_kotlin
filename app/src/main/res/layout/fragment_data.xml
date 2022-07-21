@@ -10,7 +10,7 @@
 
         <variable
             name="counter2"
-            type="com.example.androidstudy_kotlin.view.viewmodel.MainViewModel" />
+            type="com.example.androidstudy_kotlin.view.viewmodel.TestViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
