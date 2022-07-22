@@ -10,9 +10,6 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_mainFragment_to_firstFragment"
-            app:destination="@id/firstFragment" />
-        <action
             android:id="@+id/action_mainFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
         <action
@@ -21,15 +18,9 @@
         <action
             android:id="@+id/action_mainFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.FirstFragment"
-        android:label="fragment_first"
-        tools:layout="@layout/fragment_first" >
         <action
-            android:id="@+id/action_firstFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_mainFragment_to_areaTabFragment"
+            app:destination="@id/areaTabFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
@@ -57,5 +48,24 @@
         <action
             android:id="@+id/action_roomFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/areaTabFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.AreaTabFragment"
+        android:label="fragment_area_tab"
+        tools:layout="@layout/fragment_area_tab">
+        <argument
+            android:name="region"
+            android:defaultValue="@null"
+            app:argType="com.example.androidstudy_kotlin.data.model.Region"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_areaTabFragment_self"
+            app:destination="@id/areaTabFragment"
+            app:popUpTo="@id/areaTabFragment"
+            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_homeAreaTabFragment_to_homeDetailFragment"-->
+<!--            app:destination="@id/homeDetailFragment" />-->
     </fragment>
 </navigation>

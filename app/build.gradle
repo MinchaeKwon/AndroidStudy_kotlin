@@ -4,6 +4,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "kotlin-android-extensions"
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -94,7 +95,11 @@ dependencies {
     // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha01"
+
+    // viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

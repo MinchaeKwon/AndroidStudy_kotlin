@@ -17,7 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 var networkModule = module {
     single {
         Retrofit.Builder()
-            .baseUrl("http://apis.data.go.kr")
+//            .baseUrl("http://apis.data.go.kr")
+            .baseUrl("http://api.visitkorea.or.kr")
             .addConverterFactory(GsonConverterFactory.create())
 //            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(get())

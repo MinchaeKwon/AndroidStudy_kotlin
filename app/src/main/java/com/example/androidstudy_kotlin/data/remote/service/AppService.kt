@@ -11,5 +11,6 @@ interface AppService {
     @GET("/1613000/SubwayInfoService/getKwrdFndSubwaySttnList")
     suspend fun trainInfo(@QueryMap query: HashMap<String, String>): Response<Dto<Body>>
 
-
+    @GET("/openapi/service/rest/KorService/areaBasedList")
+    suspend fun areaInfo(@QueryMap query: HashMap<String, String>): Response<Dto<Body>>
 }

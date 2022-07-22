@@ -26,4 +26,9 @@ class AppRepository(private val retrofit: Retrofit) {
         }.flow
     }
 
+    fun getAreaInfoPaging(query: HashMap<String, String>): Flow<PagingData<Item>> {
+        return Pager(PagingConfig(pageSize = 20)) {
+            SubwayInfoDataSource(this)
+        }.flow
+    }
 }
