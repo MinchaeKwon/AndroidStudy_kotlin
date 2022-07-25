@@ -1,5 +1,6 @@
 package com.example.androidstudy_kotlin.view.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.androidstudy_kotlin.data.AppRepository
@@ -8,7 +9,8 @@ import com.example.androidstudy_kotlin.data.model.Item
 class AreaInfoDataSource(private val appRepository: AppRepository,
                          private val areaCode: Int,
                          private val arrange: String,
-                         private val contentTypeId: Int?
+                         private val contentTypeId: Int?,
+                         private val query: HashMap<String, String>
 ) : PagingSource<Int, Item>() {
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -18,19 +20,23 @@ class AreaInfoDataSource(private val appRepository: AppRepository,
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         return try {
+            Log.d("minchae", "22222222222")
+
             val page = params.key ?: 1
 
             val param = HashMap<String, String>().apply {
-                put("serviceKey", "8j34mk+s1/ndx0AkafC8kxGknHpk3HTehopMk9PIig4trbdhrG6PslyubpYwy4UWaU0GpUrcAwAvDsVWJkLi8g==")
+                put("ServiceKey", "8j34mk+s1/ndx0AkafC8kxGknHpk3HTehopMk9PIig4trbdhrG6PslyubpYwy4UWaU0GpUrcAwAvDsVWJkLi8g==")
                 put("pageNo", "$page")
-                put("numOfRows", "20")
-                put("areaCode", "$areaCode")
-                put("arrange", arrange)
-                put("contentTypeId", "$contentTypeId")
+                put("numOfRows", "10")
+                put("areaCode", "$query.get('areaCode')")
+                put("arrange", "$query.get('arrange')")
+                if (contentTypeId != null) put("contentTypeId", "$query.get('contentTypeId')")
                 put("_type", "json")
+                put("MobileApp", "AndroidStudy")
+                put("MobileOS", "AND")
             }
 
-            val response = appRepository.getTrainInfo(param)
+            val response = appRepository.getAreaInfo(query)
             val list = response.body()!!.response.body.items.item
 
             val prevKey = if (page == 1) null else page - 1

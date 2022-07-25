@@ -8,6 +8,7 @@ import com.example.androidstudy_kotlin.data.model.Item
 import com.example.androidstudy_kotlin.data.remote.dto.Body
 import com.example.androidstudy_kotlin.data.remote.dto.Dto
 import com.example.androidstudy_kotlin.data.remote.service.AppService
+import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -26,9 +27,13 @@ class AppRepository(private val retrofit: Retrofit) {
         }.flow
     }
 
+    suspend fun getAreaInfo(query: HashMap<String, String>): Response<Dto<Body>> {
+        return retrofit.create(AppService::class.java).areaInfo(query)
+    }
+
     fun getAreaInfoPaging(query: HashMap<String, String>): Flow<PagingData<Item>> {
-        return Pager(PagingConfig(pageSize = 20)) {
-            SubwayInfoDataSource(this)
+        return Pager(PagingConfig(pageSize = 10)) {
+            AreaInfoDataSource(this, 1, "서울", 14, query)
         }.flow
     }
 }

@@ -3,22 +3,23 @@ package com.example.androidstudy_kotlin.view.ui
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.example.androidstudy_kotlin.view.adapter.RecyclerLoadStateAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentAreaListBinding
-import com.example.androidstudy_kotlin.databinding.FragmentAreaTabBinding
+import com.example.androidstudy_kotlin.view.adapter.AreaListInfoPagingAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
+import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
 
 class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
 
     companion object {
-
         const val AREA_NUMBER = "AREA_NUMBER"
         const val CATEGORY_NUMBER = "CATEGORY_NUMBER"
 
@@ -26,95 +27,68 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
             val bundle = Bundle()
             bundle.putInt(AREA_NUMBER, areaCode)
             bundle.putInt(CATEGORY_NUMBER, contentTypeId)
+
             val fragment = AreaListFragment()
-//            fragment.arguments = bundle
+            fragment.arguments = bundle
+
             return fragment
         }
     }
 
     private var mFilterType: HomeListBaseFilter = HomeListBaseFilter.OPTION_02
+    private val infoAdapter = AreaListInfoPagingAdapter()
 
-//    lateinit var factory: HomeAreaListViewModel.HomeListViewModelFactory
-//
-//    private val viewModelArea: HomeAreaListViewModel by viewModels {
-//        val areaCode = arguments?.getInt(AREA_NUMBER)
-//        val contentTypeId = arguments?.getInt(CATEGORY_NUMBER)
-//        HomeAreaListViewModel.provideFactory(
-//            factory,
-//            areaCode ?: -1,
-//            if (contentTypeId == -1) null else contentTypeId
-//        )
-//    }
+    private val viewModel: MainViewModel by viewModel()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = super.onCreateView(inflater, container, savedInstanceState)
-//        binding.viewModel = viewModelArea
-//        binding.tvHomeListFilter.text = mFilterType.options
-//
-//        val homeListPagingAdapter = HomeAreaListPagingAdapter()
-//        binding.rvHomeList.apply {
-//            adapter = homeListPagingAdapter
-//            setHasFixedSize(true)
-//            addItemDecoration(HomeListDecoration(20.dpToPx()))
-//        }
-//        lifecycleScope.launchWhenCreated {
-//            viewModelArea.listData.collectLatest {
-//                homeListPagingAdapter.submitData(it)
-//            }
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            homeListPagingAdapter.loadStateFlow.collectLatest { loadStates ->
-//                binding.tvHomeListCount.text = "총 ${homeListPagingAdapter.itemCount}"
-//            }
-//        }
-//
-//        binding.llHomeListFilter.setOnClickListener {
-//
-//            rotateFilterArrow(false, binding.ivHomeListFilterDropdown)
-//
-//            val data = FilterListData("정렬 방법", HomeListBaseFilter::class.java, mFilterType)
-//            val dialog = FilterBottomDialog.newInstance(data) {
-//                if (it == "dismiss") {
-//                    rotateFilterArrow(true, binding.ivHomeListFilterDropdown)
-//                }else {
-//                    mFilterType = HomeListBaseFilter.valueOf(it)
-//                    binding.tvHomeListFilter.text = mFilterType.options
-//                    viewModelArea.setArrage(mFilterType.optionValue)
-//                    homeListPagingAdapter.refresh()
-//                }
-//            }
-//            dialog.show(childFragmentManager, dialog.tag)
-//        }
-//
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            homeListPagingAdapter.loadStateFlow.collectLatest { loadStates ->
-//                Log.d("error addLoadStateListener", "${loadStates}")
-//                binding.llHomeListError.isVisible = loadStates.source.refresh is LoadState.Error
-//                viewModelArea._isLoading.value = loadStates.source.append is LoadState.Loading
-//                val errorState = loadStates.source.refresh as? LoadState.Error
-//                    ?: loadStates.refresh as? LoadState.Error
-//                    ?: loadStates.append as? LoadState.Error
-//                    ?: loadStates.prepend as? LoadState.Error
-//                errorState?.let {
-//                    if (!it.error.message.isNullOrEmpty()) {
-//                        viewModelArea._toastMessage.emit(it.error.message!!)
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//        binding.btnHomeListRetry.setOnClickListener {
-//            homeListPagingAdapter.retry()
-//        }
+        binding.apply {
+            rvAreaList.setHasFixedSize(true)
+            rvAreaList.layoutManager = LinearLayoutManager(context)
+            rvAreaList.adapter = infoAdapter.withLoadStateHeaderAndFooter(RecyclerLoadStateAdapter { infoAdapter.retry() }, RecyclerLoadStateAdapter { infoAdapter.retry() })
 
-        return root
+            infoAdapter.addLoadStateListener {
+                Log.e("minchae", "pre ${it.prepend}")
+                Log.e("minchae", "ap ${it.append}")
+                Log.e("minchae", "re ${it.refresh}")
+
+                if (it.refresh is LoadState.Error) {
+                    infoAdapter.retry()
+                }
+
+                if (it.prepend.endOfPaginationReached) {
+                    dismissLoading()
+                }
+            }
+
+            val areaCode = arguments?.getInt(AREA_NUMBER)
+            var contentTypeId = arguments?.getInt(CATEGORY_NUMBER)
+
+            viewModel.let { it ->
+                lifecycleScope.launchWhenStarted {
+                    Log.e("minchae", "launchWhenStarted")
+                    showLoading()
+
+                    if (areaCode != null) {
+                        contentTypeId = if (contentTypeId == -1) null else contentTypeId
+
+                        it.getAreaInfoPaging(areaCode, contentTypeId).collect { data ->
+                            infoAdapter.submitData(data)
+                        }
+                    }
+                }
+
+                it.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                    Log.e("minchae", "isLoading.observe : $isLoading")
+                    if (isLoading) showLoading() else dismissLoading()
+                }
+
+                it.exception.observe(viewLifecycleOwner) { code ->
+                    Log.e("minchae", "exception.observe : $code")
+                }
+            }
+        }
     }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAreaListBinding {

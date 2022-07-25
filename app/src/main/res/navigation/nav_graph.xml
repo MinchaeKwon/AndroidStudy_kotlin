@@ -22,6 +22,7 @@
             android:id="@+id/action_mainFragment_to_areaTabFragment"
             app:destination="@id/areaTabFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/viewFragment"
         android:name="com.example.androidstudy_kotlin.view.ui.ViewFragment"
@@ -31,6 +32,7 @@
             android:id="@+id/action_viewFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/dataFragment"
         android:name="com.example.androidstudy_kotlin.view.ui.DataFragment"
@@ -40,6 +42,7 @@
             android:id="@+id/action_dataFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.example.androidstudy_kotlin.view.ui.RoomFragment"
@@ -49,6 +52,8 @@
             android:id="@+id/action_roomFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
+
+    <!-- 데이터를 받는 fragment에서 argument를 추가해야 함 -->
     <fragment
         android:id="@+id/areaTabFragment"
         android:name="com.example.androidstudy_kotlin.view.ui.AreaTabFragment"
@@ -64,7 +69,7 @@
             app:destination="@id/areaTabFragment"
             app:popUpTo="@id/areaTabFragment"
             app:popUpToInclusive="true" />
-<!--        <action-->
+        <!--        <action-->
 <!--            android:id="@+id/action_homeAreaTabFragment_to_homeDetailFragment"-->
 <!--            app:destination="@id/homeDetailFragment" />-->
     </fragment>

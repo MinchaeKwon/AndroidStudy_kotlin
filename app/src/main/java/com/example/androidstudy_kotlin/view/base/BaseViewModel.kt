@@ -29,24 +29,24 @@ open class BaseViewModel : ViewModel() {
         _exception.value = code
     }
 
-    //    private val _fetchState = MutableLiveData<FetchState>()
-    //    val fetchState : LiveData<FetchState>
-    //        get() = _fetchState
+//        private val _fetchState = MutableLiveData<FetchState>()
+//        val fetchState : LiveData<FetchState>
+//            get() = _fetchState
 
     protected val exceptionHandler = CoroutineExceptionHandler() { _, throwable ->
         throwable.printStackTrace()
 
-//        if (throwable is SocketException) {
-//            Log.e("bad internet")
-//        }
-//
-//        if (throwable is HttpException) {
-//            Log.e("parse error")
-//        }
-//
-//        if (throwable is UnknownHostException) {
-//            Log.e("no internet or your base url is wrong")
-//        }
+        if (throwable is SocketException) {
+            Log.e("minchae", "bad internet")
+        }
+
+        if (throwable is HttpException) {
+            Log.e("minchae", "parse error")
+        }
+
+        if (throwable is UnknownHostException) {
+            Log.e("minchae", "no internet or your base url is wrong")
+        }
 
         // TODO : 에러 code 별로 정리.
 

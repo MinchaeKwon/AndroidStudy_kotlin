@@ -29,40 +29,40 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
         val areaArr = resources.getStringArray(R.array.area)
         val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, areaArr)
 
-        // args가 null이 아닐 때만 동작
-        args.region?.let {
-            binding.apply {
-                spArea.adapter = spinnerAdapter // spinner adapter 연결
+        binding.apply {
+            // 이전 버튼 클릭
+            btnTabBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
-                // spinner 항목 선택시 동작
-                spArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                        mSelectedType = Area.from(spArea.selectedItem.toString())
+            spArea.adapter = spinnerAdapter // spinner adapter 연결
 
-                        val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf()
-//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName)
-                        findNavController().navigate(action)
-                    }
+            // spinner 항목 선택시 동작 -> 지역 선택
+            spArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    mSelectedType = Area.from(spArea.selectedItem.toString())
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                    }
-
+                    val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
+//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName) // 에러 발생
+                    findNavController().navigate(action)
                 }
 
-                vp2Tab.adapter = AreaListPagerAdapter(1, childFragmentManager, lifecycle)
+                override fun onNothingSelected(p0: AdapterView<*>?) {
 
+                }
+            }
+
+            // args가 null이 아닐 때만 동작
+            args.region?.let {
+                // viewpager2 사용
+                vp2Tab.adapter = AreaListPagerAdapter(it.areaCode.toInt(), childFragmentManager, lifecycle)
+
+                // 탭 추가
                 TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
                     tab.text = tabTitle[position]
                 }.attach()
-
-                // 이전 버튼 클릭
-                btnTabBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
             }
         }
-
 
     }
 
