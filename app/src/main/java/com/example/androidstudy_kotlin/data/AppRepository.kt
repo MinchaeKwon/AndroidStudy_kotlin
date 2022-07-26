@@ -1,5 +1,6 @@
 package com.example.androidstudy_kotlin.data
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -28,12 +29,14 @@ class AppRepository(private val retrofit: Retrofit) {
     }
 
     suspend fun getAreaInfo(query: HashMap<String, String>): Response<Dto<Body>> {
+        Log.d("minchae", "44444444444")
         return retrofit.create(AppService::class.java).areaInfo(query)
     }
 
-    fun getAreaInfoPaging(query: HashMap<String, String>): Flow<PagingData<Item>> {
+    fun getAreaInfoPaging(areaCode: Int, arrange: String, contentTypeId: Int?): Flow<PagingData<Item>> {
+        Log.d("minchae", "22222222222")
         return Pager(PagingConfig(pageSize = 10)) {
-            AreaInfoDataSource(this, 1, "서울", 14, query)
+            AreaInfoDataSource(this, areaCode, arrange, contentTypeId)
         }.flow
     }
 }

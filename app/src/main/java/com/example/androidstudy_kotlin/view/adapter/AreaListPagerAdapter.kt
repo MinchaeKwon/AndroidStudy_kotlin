@@ -15,7 +15,6 @@ class AreaListPagerAdapter(
     override fun getItemCount(): Int = 7
 
     override fun createFragment(position: Int): Fragment {
-
         return when (position) {
             0 -> AreaListFragment.newInstance(areaCode, -1)
             1 -> AreaListFragment.newInstance(areaCode, 12)

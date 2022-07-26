@@ -43,6 +43,8 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("minchae", "000000000")
+
         binding.apply {
             rvAreaList.setHasFixedSize(true)
             rvAreaList.layoutManager = LinearLayoutManager(context)
@@ -65,7 +67,7 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
             val areaCode = arguments?.getInt(AREA_NUMBER)
             var contentTypeId = arguments?.getInt(CATEGORY_NUMBER)
 
-            viewModel.let { it ->
+            viewModel.let {
                 lifecycleScope.launchWhenStarted {
                     Log.e("minchae", "launchWhenStarted")
                     showLoading()
@@ -96,6 +98,7 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
     }
 }
 
+// 정렬 방법
 enum class HomeListBaseFilter(val options: String, val optionValue: String) {
     OPTION_01("제목순", "O"),
     OPTION_02("조회순", "P"),
@@ -103,7 +106,7 @@ enum class HomeListBaseFilter(val options: String, val optionValue: String) {
     OPTION_04("생성일순", "R");
 
     override fun toString(): String {
-        return options.toString()
+        return options
     }
     companion object {
         fun from(type: String?): HomeListBaseFilter = HomeListBaseFilter.values().find { it.options == type } ?: OPTION_02

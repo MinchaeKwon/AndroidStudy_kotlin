@@ -10,7 +10,6 @@ class AreaInfoDataSource(private val appRepository: AppRepository,
                          private val areaCode: Int,
                          private val arrange: String,
                          private val contentTypeId: Int?,
-                         private val query: HashMap<String, String>
 ) : PagingSource<Int, Item>() {
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -20,7 +19,7 @@ class AreaInfoDataSource(private val appRepository: AppRepository,
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         return try {
-            Log.d("minchae", "22222222222")
+            Log.d("minchae", "33333333333")
 
             val page = params.key ?: 1
 
@@ -28,15 +27,15 @@ class AreaInfoDataSource(private val appRepository: AppRepository,
                 put("ServiceKey", "8j34mk+s1/ndx0AkafC8kxGknHpk3HTehopMk9PIig4trbdhrG6PslyubpYwy4UWaU0GpUrcAwAvDsVWJkLi8g==")
                 put("pageNo", "$page")
                 put("numOfRows", "10")
-                put("areaCode", "$query.get('areaCode')")
-                put("arrange", "$query.get('arrange')")
-                if (contentTypeId != null) put("contentTypeId", "$query.get('contentTypeId')")
+                put("areaCode", "$areaCode")
+                put("arrange", arrange)
+                if (contentTypeId != null) put("contentTypeId", "$contentTypeId")
                 put("_type", "json")
                 put("MobileApp", "AndroidStudy")
                 put("MobileOS", "AND")
             }
 
-            val response = appRepository.getAreaInfo(query)
+            val response = appRepository.getAreaInfo(param)
             val list = response.body()!!.response.body.items.item
 
             val prevKey = if (page == 1) null else page - 1

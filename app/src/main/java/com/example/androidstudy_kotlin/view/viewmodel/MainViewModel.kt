@@ -28,7 +28,7 @@ class MainViewModel (private val appRepository: AppRepository) : BaseViewModel()
         return appRepository.getTrainInfoPaing(param)
     }
 
-    private val _arrage = MutableLiveData("O")
+    private val _arrage = MutableLiveData("P")
     val arrange: LiveData<String> = _arrage
 
     fun setArrange(arrange: String) {
@@ -37,20 +37,7 @@ class MainViewModel (private val appRepository: AppRepository) : BaseViewModel()
 
     fun getAreaInfoPaging(areaCode: Int, contentTypeId: Int?): Flow<PagingData<Item>> {
         Log.d("minchae", "1111111111")
-
-        val param = HashMap<String, String>().apply {
-            put("ServiceKey", "8j34mk+s1/ndx0AkafC8kxGknHpk3HTehopMk9PIig4trbdhrG6PslyubpYwy4UWaU0GpUrcAwAvDsVWJkLi8g==")
-            put("pageNo", "1")
-            put("numOfRows", "10")
-            put("areaCode", "$areaCode")
-            put("arrange", _arrage.value!!)
-            if (contentTypeId != null) put("contentTypeId", "$contentTypeId")
-            put("MobileApp", "AndroidStudy")
-            put("MobileOS", "AND")
-            put("_type", "json")
-        }
-
-        return appRepository.getAreaInfoPaging(param)
+        return appRepository.getAreaInfoPaging(areaCode, _arrage.value!!, contentTypeId)
     }
 
 
