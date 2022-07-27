@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.androidstudy_kotlin.R
+import com.example.androidstudy_kotlin.data.model.Region
 import com.example.androidstudy_kotlin.databinding.FragmentMainBinding
 import com.example.androidstudy_kotlin.view.base.BaseFragment
 
@@ -29,7 +30,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
 
             btnPaging.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_areaTabFragment)
+                val action = MainFragmentDirections.actionMainFragmentToAreaTabFragment(Region("1", "서울"))
+                findNavController().navigate(action)
+//                findNavController().navigate(R.id.action_mainFragment_to_areaTabFragment)
             }
         }
     }

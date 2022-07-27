@@ -37,6 +37,7 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
             }
 
             spArea.adapter = spinnerAdapter // spinner adapter 연결
+            spArea.setSelection(0, false) // 서울 선택하고 onItemSelectedListener가 처음에는 동작하지 않도록 설정
 
             // spinner 항목 선택시 동작 -> 지역 선택
             spArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
