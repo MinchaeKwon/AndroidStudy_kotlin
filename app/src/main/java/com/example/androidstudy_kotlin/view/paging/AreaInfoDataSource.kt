@@ -19,8 +19,6 @@ class AreaInfoDataSource(private val appRepository: AppRepository,
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         return try {
-            Log.d("minchae", "33333333333")
-
             val page = params.key ?: 1
 
             val param = HashMap<String, String>().apply {

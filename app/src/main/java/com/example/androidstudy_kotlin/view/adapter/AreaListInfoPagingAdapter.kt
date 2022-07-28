@@ -7,6 +7,8 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
+import coil.transform.RoundedCornersTransformation
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.data.model.Item
 import com.example.androidstudy_kotlin.databinding.ItemAreaInfoBinding
@@ -37,10 +39,14 @@ class AreaListInfoPagingAdapter : PagingDataAdapter<Item, AreaListInfoPagingAdap
 
         fun bind(data: Item) {
             viewBind.apply {
-//                ivAreaItem
-
                 tvAreaItemTitle.text = data.title
                 tvAreaItemAddr1.text = data.addr1
+
+                ivAreaItem.load(data.firstimage2) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation())
+//                    placeholder(R.drawable.ic_launcher_background)
+                }
 
                 itemView.setOnClickListener {
                     Log.d("minchae", "title : ${tvAreaItemTitle.text}")

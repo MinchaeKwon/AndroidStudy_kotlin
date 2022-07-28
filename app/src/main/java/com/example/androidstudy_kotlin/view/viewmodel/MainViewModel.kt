@@ -36,7 +36,6 @@ class MainViewModel (private val appRepository: AppRepository) : BaseViewModel()
     }
 
     fun getAreaInfoPaging(areaCode: Int, contentTypeId: Int?): Flow<PagingData<Item>> {
-        Log.d("minchae", "1111111111")
         return appRepository.getAreaInfoPaging(areaCode, _arrage.value!!, contentTypeId)
     }
 

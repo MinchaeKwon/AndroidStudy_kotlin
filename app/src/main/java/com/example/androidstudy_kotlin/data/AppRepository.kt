@@ -29,12 +29,10 @@ class AppRepository(private val retrofit: Retrofit) {
     }
 
     suspend fun getAreaInfo(query: HashMap<String, String>): Response<Dto<Body>> {
-        Log.d("minchae", "44444444444")
         return retrofit.create(AppService::class.java).areaInfo(query)
     }
 
     fun getAreaInfoPaging(areaCode: Int, arrange: String, contentTypeId: Int?): Flow<PagingData<Item>> {
-        Log.d("minchae", "22222222222")
         return Pager(PagingConfig(pageSize = 10)) {
             AreaInfoDataSource(this, areaCode, arrange, contentTypeId)
         }.flow

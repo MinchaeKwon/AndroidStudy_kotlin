@@ -11,6 +11,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 class PracticeApplication : Application() {
+    init {
+        context = this
+    }
+
     override fun onCreate() {
         super.onCreate()
 
@@ -27,5 +31,10 @@ class PracticeApplication : Application() {
                 )
             )
         }
+    }
+
+    companion object {
+        var context: PracticeApplication? = null
+            private set
     }
 }

@@ -13,6 +13,7 @@ import com.example.androidstudy_kotlin.view.adapter.RecyclerLoadStateAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudy_kotlin.databinding.FragmentAreaListBinding
+import com.example.androidstudy_kotlin.util.extension.dpToPx
 import com.example.androidstudy_kotlin.view.adapter.AreaListInfoPagingAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
 import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
@@ -43,18 +44,17 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("minchae", "000000000")
-
         binding.apply {
-            rvAreaList.setHasFixedSize(true)
-            rvAreaList.layoutManager = LinearLayoutManager(context)
-            rvAreaList.adapter = infoAdapter.withLoadStateHeaderAndFooter(RecyclerLoadStateAdapter { infoAdapter.retry() }, RecyclerLoadStateAdapter { infoAdapter.retry() })
+            // recyclerview 설정
+            rvAreaList.apply {
+                setHasFixedSize(true)
+                addItemDecoration(ListDecoration(20.dpToPx()))
+
+                layoutManager = LinearLayoutManager(context)
+                adapter = infoAdapter.withLoadStateHeaderAndFooter(RecyclerLoadStateAdapter { infoAdapter.retry() }, RecyclerLoadStateAdapter { infoAdapter.retry() })
+            }
 
             infoAdapter.addLoadStateListener {
-                Log.e("minchae", "pre ${it.prepend}")
-                Log.e("minchae", "ap ${it.append}")
-                Log.e("minchae", "re ${it.refresh}")
-
                 if (it.refresh is LoadState.Error) {
                     infoAdapter.retry()
                 }
@@ -80,15 +80,6 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
                         }
                     }
                 }
-
-                it.isLoading.observe(viewLifecycleOwner) { isLoading ->
-                    Log.e("minchae", "isLoading.observe : $isLoading")
-                    if (isLoading) showLoading() else dismissLoading()
-                }
-
-                it.exception.observe(viewLifecycleOwner) { code ->
-                    Log.e("minchae", "exception.observe : $code")
-                }
             }
         }
     }
@@ -113,7 +104,7 @@ enum class HomeListBaseFilter(val options: String, val optionValue: String) {
     }
 }
 
-class HomeListDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+class ListDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect.bottom = space

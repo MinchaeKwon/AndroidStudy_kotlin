@@ -42,8 +42,6 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
             // spinner 항목 선택시 동작 -> 지역 선택
             spArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    Log.d("minchae", "spinner 선택 : " + spArea.selectedItem.toString())
-
                     mSelectedType = Area.from(spArea.selectedItem.toString())
 
                     val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
@@ -58,14 +56,11 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
 
             // args가 null이 아닐 때만 동작
             args.region?.let {
-                Log.d("minchae", "viewpager 사용")
-
                 // viewpager2 사용
                 vp2Tab.adapter = AreaListPagerAdapter(it.areaCode.toInt(), childFragmentManager, lifecycle)
 
                 // 탭 추가
                 TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
-                    Log.d("minchae", "탭 추가")
                     tab.text = tabTitle[position]
                 }.attach()
             }
