@@ -7,11 +7,12 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.data.model.Item
 import com.example.androidstudy_kotlin.databinding.ItemAreaInfoBinding
+import com.example.androidstudy_kotlin.view.ui.AreaTabFragmentDirections
 
 class AreaListInfoPagingAdapter : PagingDataAdapter<Item, AreaListInfoPagingAdapter.ItemViewHolder>(differCallback) {
     companion object {
@@ -48,8 +49,10 @@ class AreaListInfoPagingAdapter : PagingDataAdapter<Item, AreaListInfoPagingAdap
 //                    placeholder(R.drawable.ic_launcher_background)
                 }
 
+                // 상세 화면으로 이동
                 itemView.setOnClickListener {
-                    Log.d("minchae", "title : ${tvAreaItemTitle.text}")
+                    val action = AreaTabFragmentDirections.actionAreaTabFragmentToAreaDetailFragment(data.contentid!!, data.contenttypeid!!)
+                    itemView.findNavController().navigate(action)
                 }
             }
         }

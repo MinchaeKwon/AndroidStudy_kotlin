@@ -17,28 +17,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="총 00" />
 
-    <LinearLayout
-        android:id="@+id/ll_area_list_filter"
+    <Spinner
+        android:id="@+id/sp_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:orientation="horizontal"
+        android:entries="@array/sorting"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_home_list_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            tools:text="혼잡도 낮은순" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_area_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

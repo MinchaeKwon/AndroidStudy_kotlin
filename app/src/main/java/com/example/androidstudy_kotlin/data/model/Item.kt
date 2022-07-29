@@ -21,5 +21,6 @@ data class Item(
     val readcount: Int?,
     val sigungucode: Int?,
     var title: String?,
-    val addr1: String?
+    val addr1: String?,
+    val overview: String? // 상세 정보 가져올 때 사용
 )

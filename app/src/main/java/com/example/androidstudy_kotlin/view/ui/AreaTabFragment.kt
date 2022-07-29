@@ -14,9 +14,7 @@ import com.example.androidstudy_kotlin.data.enum.Area
 import com.example.androidstudy_kotlin.data.model.Region
 import com.example.androidstudy_kotlin.databinding.FragmentAreaTabBinding
 import com.example.androidstudy_kotlin.view.adapter.AreaListPagerAdapter
-import com.example.androidstudy_kotlin.view.adapter.SubwayInfoPagingAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
-import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {

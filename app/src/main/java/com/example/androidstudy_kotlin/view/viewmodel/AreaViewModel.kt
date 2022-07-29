@@ -1,9 +1,9 @@
 package com.example.androidstudy_kotlin.view.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.androidstudy_kotlin.data.model.Item
 import com.example.androidstudy_kotlin.data.remote.dto.Body
 import com.example.androidstudy_kotlin.data.remote.dto.Dto
@@ -11,7 +11,7 @@ import com.example.androidstudy_kotlin.data.AppRepository
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 
-class MainViewModel (private val appRepository: AppRepository) : BaseViewModel() {
+class AreaViewModel (private val appRepository: AppRepository) : BaseViewModel() {
 
     var subwayInfo = MutableLiveData<Dto<Body>>()
 
@@ -28,16 +28,13 @@ class MainViewModel (private val appRepository: AppRepository) : BaseViewModel()
         return appRepository.getTrainInfoPaing(param)
     }
 
-    private val _arrage = MutableLiveData("P")
-    val arrange: LiveData<String> = _arrage
+    private var _arrange = MutableLiveData("P")
 
     fun setArrange(arrange: String) {
-        _arrage.value = arrange
+        _arrange.value = arrange
     }
 
     fun getAreaInfoPaging(areaCode: Int, contentTypeId: Int?): Flow<PagingData<Item>> {
-        return appRepository.getAreaInfoPaging(areaCode, _arrage.value!!, contentTypeId)
+        return appRepository.getAreaInfoPaging(areaCode, _arrange.value!!, contentTypeId).cachedIn(viewModelScope)
     }
-
-
 }

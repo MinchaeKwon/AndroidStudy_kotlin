@@ -2,23 +2,28 @@ package com.example.androidstudy_kotlin.view.ui
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.androidstudy_kotlin.view.adapter.RecyclerLoadStateAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidstudy_kotlin.R
+import com.example.androidstudy_kotlin.data.enum.Sorting
 import com.example.androidstudy_kotlin.databinding.FragmentAreaListBinding
 import com.example.androidstudy_kotlin.util.extension.dpToPx
 import com.example.androidstudy_kotlin.view.adapter.AreaListInfoPagingAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
-import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
+import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
+class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
 
     companion object {
         const val AREA_NUMBER = "AREA_NUMBER"
@@ -36,10 +41,10 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
         }
     }
 
-    private var mFilterType: HomeListBaseFilter = HomeListBaseFilter.OPTION_02
+    private var mFilterType: Sorting = Sorting.OPTION_02
     private val infoAdapter = AreaListInfoPagingAdapter()
 
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: AreaViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +74,7 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
 
             viewModel.let {
                 lifecycleScope.launchWhenStarted {
-                    Log.e("minchae", "launchWhenStarted")
+//                    Log.e("minchae", "launchWhenStarted")
                     showLoading()
 
                     if (areaCode != null) {
@@ -81,26 +86,33 @@ class AreaListFragment: BaseFragment<FragmentAreaListBinding>() {
                     }
                 }
             }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                infoAdapter.loadStateFlow.collectLatest { loadStates ->
+                    tvAreaListCount.text = "총 ${infoAdapter.itemCount}"
+                }
+            }
+
+            spSort.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.sorting))
+            spSort.setSelection(1, false)
+
+            spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    mFilterType = Sorting.from(spSort.selectedItem.toString())
+                    viewModel.setArrange(mFilterType.optionValue)
+
+//                    infoAdapter.refresh()
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+            }
         }
     }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAreaListBinding {
         return FragmentAreaListBinding.inflate(inflater, container, false)
-    }
-}
-
-// 정렬 방법
-enum class HomeListBaseFilter(val options: String, val optionValue: String) {
-    OPTION_01("제목순", "O"),
-    OPTION_02("조회순", "P"),
-    OPTION_03("수정일순", "Q"),
-    OPTION_04("생성일순", "R");
-
-    override fun toString(): String {
-        return options
-    }
-    companion object {
-        fun from(type: String?): HomeListBaseFilter = HomeListBaseFilter.values().find { it.options == type } ?: OPTION_02
     }
 }
 

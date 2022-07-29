@@ -69,8 +69,21 @@
             app:destination="@id/areaTabFragment"
             app:popUpTo="@id/areaTabFragment"
             app:popUpToInclusive="true" />
-        <!--        <action-->
-<!--            android:id="@+id/action_homeAreaTabFragment_to_homeDetailFragment"-->
-<!--            app:destination="@id/homeDetailFragment" />-->
+        <action
+            android:id="@+id/action_areaTabFragment_to_areaDetailFragment"
+            app:destination="@id/areaDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/areaDetailFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.TripDetailFragment"
+        android:label="fragment_area_detail"
+        tools:layout="@layout/fragment_trip_detail">
+        <argument
+            android:name="contentId"
+            app:argType="integer" />
+        <argument
+            android:name="contentTypeId"
+            app:argType="integer" />
     </fragment>
 </navigation>
