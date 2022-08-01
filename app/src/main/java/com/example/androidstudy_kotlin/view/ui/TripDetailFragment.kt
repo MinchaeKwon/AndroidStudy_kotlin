@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.androidstudy_kotlin.R
@@ -14,6 +15,7 @@ import com.example.androidstudy_kotlin.view.base.BaseFragment
 import com.example.androidstudy_kotlin.view.viewmodel.TripDetailViewModel
 import com.skt.Tmap.TMapMarkerItem
 import com.skt.Tmap.TMapPoint
+import com.skt.Tmap.TMapTapi
 import com.skt.Tmap.TMapView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +33,8 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>() {
             viewModel.let {
                 it.getTripDetailInfo(args.contentId, args.contentTypeId)
 
-                it.list.observe(viewLifecycleOwner) { data ->
+                // fragment에서는 owner를 this(activity에서 사용)가 아닌 viewLifecycleOwner를 사용
+                it.tripDetail.observe(viewLifecycleOwner) { data ->
                     ivDetailImg.load(data.firstimage)
                     tvDetailTitle.text = data.title
                     tvDetailAddr.text = data.addr1
@@ -42,15 +45,27 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>() {
                     llDetailLocation.addView(tMapView)
 
                     val marker = TMapMarkerItem()
-                    val point = TMapPoint(data.mapx, data.mapy)
-                    val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.icon_marker)
+                    val point = TMapPoint(data.mapy, data.mapx)
 
-                    marker.icon = bitmap
+                    val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.icon_marker)
+                    marker.icon = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
+
                     marker.setPosition(0.5f, 1.0f)
                     marker.tMapPoint = point
                     marker.name = "test"
 
                     tMapView.addMarkerItem("marker", marker)
+
+                    // 길안내
+                   btnFind.setOnClickListener {
+                       val tmaptapi = TMapTapi(context)
+
+                       if (tmaptapi.isTmapApplicationInstalled) {
+                           tmaptapi.invokeRoute(data.addr1, data.mapx.toFloat(), data.mapy.toFloat())
+                       } else {
+                           Toast.makeText(context, "티맵 설치 X", Toast.LENGTH_SHORT).show()
+                       }
+                   }
                 }
             }
         }
