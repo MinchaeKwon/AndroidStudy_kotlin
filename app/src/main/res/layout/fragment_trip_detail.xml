@@ -63,6 +63,14 @@
 스핑크스처럼 털이 거의 없거나 맹크스처럼 꼬리가 없는 품종도 있다. 품종은 장모종, 중모종, 단모종 등으로 나뉘며, 단모종의 대표종인 아비니시안 고양이와 장모종의 대표종인 페르시안 고양이가 있다.
 
 애완견과는 달리 옛 습성이 살아 있으며, 발톱을 숨길 수 있어서 쥐, 새, 벌레 등을 사냥할 수 있다." />
+
+            <LinearLayout
+                android:id="@+id/ll_detail_location"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"></LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

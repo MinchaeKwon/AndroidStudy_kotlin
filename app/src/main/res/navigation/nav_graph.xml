@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_mainFragment_to_areaTabFragment"
             app:destination="@id/areaTabFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_tmapFragment"
+            app:destination="@id/tmapFragment" />
     </fragment>
 
     <fragment
@@ -86,4 +89,9 @@
             android:name="contentTypeId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/tmapFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.TmapFragment"
+        android:label="fragment_tmap"
+        tools:layout="@layout/fragment_tmap" />
 </navigation>

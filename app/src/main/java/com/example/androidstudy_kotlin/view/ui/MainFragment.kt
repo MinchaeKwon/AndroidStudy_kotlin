@@ -34,6 +34,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 findNavController().navigate(action)
 //                findNavController().navigate(R.id.action_mainFragment_to_areaTabFragment)
             }
+
+            btnTmap.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment_to_tmapFragment)
+            }
         }
     }
 
