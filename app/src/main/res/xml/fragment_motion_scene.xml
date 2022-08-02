@@ -1,0 +1,72 @@
+<MotionScene xmlns:motion="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@+id/start"
+        motion:duration="1000">
+        <OnSwipe
+            motion:dragDirection="dragDown"
+            motion:maxAcceleration="10"
+            motion:onTouchUp="autoComplete" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
+            motion:motionProgress="0"
+            android:id="@+id/lottieAnimationView" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintLeft_toLeftOf="parent"
+            motion:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
+            motion:motionProgress="1"
+            android:id="@+id/lottieAnimationView" />
+    </ConstraintSet>
+
+<!--    <Transition-->
+<!--        motion:constraintSetStart="@layout/motion_rocket_animation_start"-->
+<!--        motion:constraintSetEnd="@layout/motion_rocket_animation_end"-->
+<!--        motion:duration="3000">-->
+<!--        <OnClick motion:motionTarget="@id/button_ok"-->
+<!--            motion:clickAction="toggle"/>-->
+
+<!--        <KeyFrameSet>-->
+<!--            <KeyPosition-->
+<!--                motion:framePosition="50"-->
+<!--                motion:keyPositionType="parentRelative"-->
+<!--                motion:percentY="0.40"-->
+<!--                motion:motionTarget="@+id/lottieAnimationView" />-->
+<!--            <KeyAttribute-->
+<!--                android:scaleX="2"-->
+<!--                android:scaleY="2"-->
+<!--                motion:framePosition="50"-->
+<!--                motion:motionTarget="@id/lottieAnimationView" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:rotationY="-50"-->
+<!--                motion:framePosition="40"-->
+<!--                motion:motionTarget="@id/lottieAnimationView" />-->
+
+<!--            <KeyAttribute-->
+<!--                android:rotationY="50"-->
+<!--                motion:framePosition="60"-->
+<!--                motion:motionTarget="@id/lottieAnimationView" />-->
+<!--        </KeyFrameSet>-->
+<!--    </Transition>-->
+</MotionScene>
