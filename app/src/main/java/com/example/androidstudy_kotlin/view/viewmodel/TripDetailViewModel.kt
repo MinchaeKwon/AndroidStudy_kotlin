@@ -4,13 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.androidstudy_kotlin.data.AppRepository
 import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.data.remote.dto.Body
+import com.example.androidstudy_kotlin.data.remote.dto.Dto
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class TripDetailViewModel (private val appRepository: AppRepository) : BaseViewModel() {
 
-    var tripDetail = MutableLiveData<Item>()
+    var tripDetail = MutableLiveData<Dto<Body>>()
 
     fun getTripDetailInfo(contentId: Int, contentTypeId: Int) {
         viewModelScope.launch(exceptionHandler) {
@@ -36,12 +38,7 @@ class TripDetailViewModel (private val appRepository: AppRepository) : BaseViewM
 
             val response = appRepository.getTripDetailInfo(param)
             if (response.isSuccessful) {
-                val result = response.body()?.getAsJsonObject("response")?.
-                        getAsJsonObject("body")?.
-                        getAsJsonObject("items")?.
-                        getAsJsonObject("item")
-
-                tripDetail.postValue(Gson().fromJson(result, Item::class.java))
+                tripDetail.postValue(response.body())
             } else {
                 setError(response.code())
             }

@@ -37,7 +37,7 @@ class AppRepository(private val appService: AppService) {
         }.flow
     }
 
-    suspend fun getTripDetailInfo(query: HashMap<String, String>): Response<JsonObject> {
+    suspend fun getTripDetailInfo(query: HashMap<String, String>): Response<Dto<Body>> {
         return appService.tripDetailInfo(query)
     }
 }

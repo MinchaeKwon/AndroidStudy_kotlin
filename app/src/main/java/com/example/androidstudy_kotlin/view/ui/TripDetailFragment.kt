@@ -35,17 +35,19 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>() {
 
                 // fragment에서는 owner를 this(activity에서 사용)가 아닌 viewLifecycleOwner를 사용
                 it.tripDetail.observe(viewLifecycleOwner) { data ->
-                    ivDetailImg.load(data.firstimage)
-                    tvDetailTitle.text = data.title
-                    tvDetailAddr.text = data.addr1
-                    tvDetailContent.text = data.overview
+                    val item = data.response.body.items.item[0]
+
+                    ivDetailImg.load(item.firstimage)
+                    tvDetailTitle.text = item.title
+                    tvDetailAddr.text = item.addr1
+                    tvDetailContent.text = item.overview
 
                     tMapView.setSKTMapApiKey("l7xx76fbfbdb39464c419da151dc1d9b5bb9")
-                    tMapView.setCenterPoint(data.mapx!!, data.mapy!!)
+                    tMapView.setCenterPoint(item.mapx!!, item.mapy!!)
                     llDetailLocation.addView(tMapView)
 
                     val marker = TMapMarkerItem()
-                    val point = TMapPoint(data.mapy, data.mapx)
+                    val point = TMapPoint(item.mapy, item.mapx)
 
                     val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.icon_marker)
                     marker.icon = Bitmap.createScaledBitmap(bitmap, 100, 100, false)
@@ -61,7 +63,7 @@ class TripDetailFragment : BaseFragment<FragmentTripDetailBinding>() {
                        val tmaptapi = TMapTapi(context)
 
                        if (tmaptapi.isTmapApplicationInstalled) {
-                           tmaptapi.invokeRoute(data.addr1, data.mapx.toFloat(), data.mapy.toFloat())
+                           tmaptapi.invokeRoute(item.addr1, item.mapx.toFloat(), item.mapy.toFloat())
                        } else {
                            Toast.makeText(context, "티맵 설치 X", Toast.LENGTH_SHORT).show()
                        }

@@ -16,5 +16,5 @@ interface AppService {
     suspend fun areaInfo(@QueryMap query: HashMap<String, String>): Response<Dto<Body>>
 
     @GET("/openapi/service/rest/KorService/detailCommon")
-    suspend fun tripDetailInfo(@QueryMap query: HashMap<String, String>): Response<JsonObject>
+    suspend fun tripDetailInfo(@QueryMap query: HashMap<String, String>): Response<Dto<Body>>
 }
