@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.androidstudy_kotlin.databinding.ActivityMainBinding
-//import com.example.androidstudy_kotlin.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -20,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root);
 
 //        navController = binding.navHostFragment.findNavController()
-        navController = nav_host_fragment.findNavController()
+//        navController = nav_host_fragment.findNavController()
         navController = findNavController(R.id.nav_host_fragment)
     }
 }

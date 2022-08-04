@@ -2,8 +2,14 @@ package com.example.androidstudy_kotlin.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.androidstudy_kotlin.data.AppRepository
+import com.example.androidstudy_kotlin.data.remote.dto.Body
+import com.example.androidstudy_kotlin.data.remote.dto.Dto
+import com.example.androidstudy_kotlin.view.base.BaseViewModel
+import kotlinx.coroutines.launch
 
-class TestViewModel : ViewModel() {
+class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() {
     // 2. View Binding, Data Binding + ViewModel
     private var num1 = 0
 
@@ -32,5 +38,34 @@ class TestViewModel : ViewModel() {
 
     fun getNum2(): MutableLiveData<Int> {
         return num2
+    }
+
+    val list = MutableLiveData<Dto<Body>>()
+
+    fun getAreaInfoTest(areaCode: Int, contentTypeId: Int?) {
+        val param = HashMap<String, String>().apply {
+            put("ServiceKey", "8j34mk+s1/ndx0AkafC8kxGknHpk3HTehopMk9PIig4trbdhrG6PslyubpYwy4UWaU0GpUrcAwAvDsVWJkLi8g==")
+            put("pageNo", "1")
+            put("numOfRows", "5")
+            put("areaCode", "$areaCode")
+            put("arrange", "P")
+            if (contentTypeId != null) put("contentTypeId", "$contentTypeId")
+            put("_type", "json")
+            put("MobileApp", "AndroidStudy")
+            put("MobileOS", "AND")
+        }
+
+        viewModelScope.launch(exceptionHandler) {
+            setLoading(true)
+
+            val response = appRepository.getAreaInfo(param)
+            if (response.isSuccessful) {
+                list.postValue(response.body())
+            } else {
+                setError(response.code())
+            }
+
+            setLoading(false)
+        }
     }
 }
