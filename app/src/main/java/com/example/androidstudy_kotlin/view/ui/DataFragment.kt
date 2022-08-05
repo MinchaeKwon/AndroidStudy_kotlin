@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.androidstudy_kotlin.R
@@ -21,7 +21,7 @@ class DataFragment : Fragment() {
 
     private var num = 0
 
-    private val viewModel: TestViewModel by viewModels()
+    private val viewModel: TestViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
