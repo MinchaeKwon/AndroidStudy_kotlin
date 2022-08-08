@@ -1,6 +1,5 @@
 package com.example.androidstudy_kotlin.view.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.androidstudy_kotlin.data.AppRepository

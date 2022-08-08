@@ -4,7 +4,6 @@ import com.example.androidstudy_kotlin.data.AppRepository
 import com.example.androidstudy_kotlin.BuildConfig
 import com.example.androidstudy_kotlin.data.RequestInterceptor
 import com.example.androidstudy_kotlin.data.remote.service.AppService
-import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.TestViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.TripDetailViewModel
@@ -57,7 +56,7 @@ var repositoryModule = module {
 
 var viewModelModule = module {
     viewModel { TestViewModel(appRepository = get()) }
-    viewModel { AreaViewModel(appRepository = get()) }
+    viewModel { (areaCode: Int, contentTypeId: Int?) -> AreaViewModel(appRepository = get(), areaCode, contentTypeId) }
     viewModel { TripDetailViewModel(appRepository = get()) }
 }
 

@@ -1,5 +1,7 @@
 package com.example.androidstudy_kotlin.data
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -8,7 +10,6 @@ import com.example.androidstudy_kotlin.data.model.Item
 import com.example.androidstudy_kotlin.data.remote.dto.Body
 import com.example.androidstudy_kotlin.data.remote.service.AppService
 import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
-import com.google.gson.JsonObject
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import com.example.androidstudy_kotlin.data.remote.dto.Dto as Dto
@@ -31,9 +32,10 @@ class AppRepository(private val appService: AppService) {
         return appService.areaInfo(query)
     }
 
-    fun getAreaInfoPaging(areaCode: Int, arrange: String, contentTypeId: Int?): Flow<PagingData<Item>> {
+    fun getAreaInfoPaging(areaCode: Int, arrange: MutableLiveData<String>, contentTypeId: Int?): Flow<PagingData<Item>> {
+
         return Pager(PagingConfig(pageSize = 10)) {
-            AreaInfoDataSource(this, areaCode, arrange, contentTypeId)
+            AreaInfoDataSource(this, areaCode, arrange.value!!, contentTypeId)
         }.flow
     }
 

@@ -2,6 +2,8 @@ package com.example.androidstudy_kotlin.view.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.androidstudy_kotlin.data.model.Item
@@ -9,9 +11,15 @@ import com.example.androidstudy_kotlin.data.remote.dto.Body
 import com.example.androidstudy_kotlin.data.remote.dto.Dto
 import com.example.androidstudy_kotlin.data.AppRepository
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
+import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
 
-class AreaViewModel (private val appRepository: AppRepository) : BaseViewModel() {
+// 생성자에 의존성 주입
+class AreaViewModel(
+    private val appRepository: AppRepository,
+    private val areaCode: Int,
+    private val contentTypeId: Int?
+) : BaseViewModel() {
 
     var subwayInfo = MutableLiveData<Dto<Body>>()
 
@@ -34,7 +42,11 @@ class AreaViewModel (private val appRepository: AppRepository) : BaseViewModel()
         _arrange.value = arrange
     }
 
-    fun getAreaInfoPaging(areaCode: Int, contentTypeId: Int?): Flow<PagingData<Item>> {
-        return appRepository.getAreaInfoPaging(areaCode, _arrange.value!!, contentTypeId).cachedIn(viewModelScope)
+//    var list = Pager(PagingConfig(pageSize = 10)) {
+//        AreaInfoDataSource(appRepository, areaCode, _arrange.value!!, contentTypeId)
+//    }.flow.cachedIn(viewModelScope)
+
+    fun getAreaInfoPaging(): Flow<PagingData<Item>> {
+        return appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId)
     }
 }

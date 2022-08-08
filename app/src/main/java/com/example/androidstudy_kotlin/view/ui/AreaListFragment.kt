@@ -2,6 +2,7 @@ package com.example.androidstudy_kotlin.view.ui
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.example.androidstudy_kotlin.view.base.BaseFragment
 import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.core.parameter.parametersOf
 
 class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
 
@@ -44,7 +46,12 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
     private var mFilterType: Sorting = Sorting.OPTION_02
     private val infoAdapter = AreaListInfoPagingAdapter()
 
-    private val viewModel: AreaViewModel by viewModel()
+    private val viewModel: AreaViewModel by viewModel {
+        val areaCode = arguments?.getInt(AREA_NUMBER)
+        val contentTypeId = arguments?.getInt(CATEGORY_NUMBER)
+
+        parametersOf(areaCode?: -1, if (contentTypeId == -1) null else contentTypeId)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,20 +76,23 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
                 }
             }
 
-            val areaCode = arguments?.getInt(AREA_NUMBER)
-            var contentTypeId = arguments?.getInt(CATEGORY_NUMBER)
-
             viewModel.let {
+                // lifecycleScope : activity, fragment에서 사용
                 lifecycleScope.launchWhenStarted {
-//                    Log.e("minchae", "launchWhenStarted")
                     showLoading()
 
-                    if (areaCode != null) {
-                        contentTypeId = if (contentTypeId == -1) null else contentTypeId
+                    // collectLatest도 사용 가능
+//                    it.list.collectLatest {
+//                        infoAdapter.submitData(it)
+//                    }
 
-                        it.getAreaInfoPaging(areaCode, contentTypeId).collect { data ->
-                            infoAdapter.submitData(data)
-                        }
+//                    it.list.collect { data ->
+//                        Log.e("minchae", "5555555")
+//                        infoAdapter.submitData(data)
+//                    }
+
+                    it.getAreaInfoPaging().collect { data ->
+                        infoAdapter.submitData(data)
                     }
                 }
             }
@@ -93,6 +103,7 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
                 }
             }
 
+            // 정렬 스피너
             spSort.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.sorting))
             spSort.setSelection(1, false)
 
@@ -101,7 +112,7 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
                     mFilterType = Sorting.from(spSort.selectedItem.toString())
                     viewModel.setArrange(mFilterType.optionValue)
 
-//                    infoAdapter.refresh()
+                    infoAdapter.refresh()
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
