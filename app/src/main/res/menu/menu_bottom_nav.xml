@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainFragment"
+        android:title="홈"
+        android:icon="@drawable/ic_home_black_20" />
+    <item
+        android:id="@+id/areaTabFragment"
+        android:title="목록"
+        android:icon="@drawable/ic_list_black_20" />
+    <item
+        android:id="@+id/tmapFragment"
+        android:title="연습"
+        android:icon="@drawable/ic_perm_identity_black_20" />
+</menu>
