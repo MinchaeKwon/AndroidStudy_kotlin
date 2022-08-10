@@ -40,7 +40,7 @@ class TripDetailViewModel (private val appRepository: AppRepository) : BaseViewM
             if (response.isSuccessful) {
                 tripDetail.postValue(response.body())
             } else {
-                setError(response.code())
+                setError(response.code(), response.message(), null)
             }
 
             setLoading(false)

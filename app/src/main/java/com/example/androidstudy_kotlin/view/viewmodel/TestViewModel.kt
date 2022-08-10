@@ -62,7 +62,7 @@ class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() 
             if (response.isSuccessful) {
                 list.postValue(response.body())
             } else {
-                setError(response.code())
+                setError(response.code(), response.message(), null)
             }
 
             setLoading(false)

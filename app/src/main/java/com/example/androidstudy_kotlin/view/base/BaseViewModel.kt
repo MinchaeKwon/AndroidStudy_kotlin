@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidstudy_kotlin.data.remote.dto.ErrorData
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -22,11 +23,12 @@ open class BaseViewModel : ViewModel() {
         _isLoading.value = setLoading
     }
 
-    private val _exception = MutableLiveData<Int>()
-    val exception: LiveData<Int> get() = _exception
+    private val _exception = MutableLiveData<ErrorData>()
+    val exception: LiveData<ErrorData> get() = _exception
 
-    open fun setError(code: Int) {
-        _exception.value = code
+    open fun setError(code: Int, message: String?, throwable: Throwable?) {
+        _exception.value = ErrorData(code, message, throwable)
+
     }
 
 //        private val _fetchState = MutableLiveData<FetchState>()
@@ -59,11 +61,11 @@ open class BaseViewModel : ViewModel() {
         setLoading(false)
     }
 
-    fun restApiLaunch(block: CoroutineScope.() -> Unit): Job {
-        return viewModelScope.launch(exceptionHandler) {
-            setLoading(true)
-            block()
-            setLoading(false)
-        }
-    }
+//    fun restApiLaunch(block: CoroutineScope.() -> Unit): Job {
+//        return viewModelScope.launch(exceptionHandler) {
+//            setLoading(true)
+//            block()
+//            setLoading(false)
+//        }
+//    }
 }

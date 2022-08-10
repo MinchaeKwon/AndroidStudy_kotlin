@@ -13,6 +13,7 @@ import com.example.androidstudy_kotlin.data.AppRepository
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 // 생성자에 의존성 주입
 class AreaViewModel(
@@ -36,6 +37,7 @@ class AreaViewModel(
         return appRepository.getTrainInfoPaing(param)
     }
 
+    var list = MutableLiveData<PagingData<Item>>()
     private var _arrange = MutableLiveData("P")
 
     fun setArrange(arrange: String) {
@@ -49,4 +51,16 @@ class AreaViewModel(
     fun getAreaInfoPaging(): Flow<PagingData<Item>> {
         return appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId)
     }
+
+    fun getAreaInfoPaging2() {
+        viewModelScope.launch(exceptionHandler) {
+            setLoading(true)
+
+            val result = appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId)
+            result.collect { data -> list.postValue(data) } // collectLatest도 사용 가능
+
+            setLoading(false)
+        }
+    }
+
 }

@@ -17,10 +17,10 @@ import com.example.androidstudy_kotlin.databinding.DialogProgressBinding
 import com.example.androidstudy_kotlin.util.extension.runOnUiThread
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
-    private lateinit var _binding: T
-    val binding get() = _binding
+    private var _binding: T? = null
+    val binding get() = _binding!!
 
-    private lateinit var activity: Activity
+    protected lateinit var mActivity: Activity
     protected lateinit var mContext: Context
 
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): T
@@ -32,12 +32,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        activity = context as Activity
+        mActivity = context as Activity
         mContext = context
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
 
     private val mProgressDialog: AppCompatDialog by lazy {
@@ -52,7 +53,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
             // UI 접근을 할 수 있음 -> 메인 스레드에서 동작
             runOnUiThread {
-                if (!isDialogShowing(mProgressDialog) && !activity.isFinishing && !activity.isDestroyed) {
+                if (!isDialogShowing(mProgressDialog) && !mActivity.isFinishing && !mActivity.isDestroyed) {
                     mProgressDialog.show()
                 }
             }

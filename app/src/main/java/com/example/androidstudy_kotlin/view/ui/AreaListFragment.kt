@@ -77,22 +77,27 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
             }
 
             viewModel.let {
+                it.getAreaInfoPaging2()
+                it.list.observe(viewLifecycleOwner) { data ->
+                    infoAdapter.submitData(lifecycle, data)
+                }
+
                 // lifecycleScope : activity, fragment에서 사용
                 lifecycleScope.launchWhenStarted {
                     showLoading()
 
-                    // collectLatest도 사용 가능
-//                    it.list.collectLatest {
-//                        infoAdapter.submitData(it)
-//                    }
-
-//                    it.list.collect { data ->
-//                        Log.e("minchae", "5555555")
-//                        infoAdapter.submitData(data)
-//                    }
-
                     it.getAreaInfoPaging().collect { data ->
                         infoAdapter.submitData(data)
+                    }
+
+                    it.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                        Log.e("minchae", "isLoading.observe : $isLoading")
+                        if (isLoading) showLoading() else dismissLoading()
+                    }
+
+                    it.exception.observe(viewLifecycleOwner) { error ->
+                        Log.e("minchae", "exception.observe error.code : ${error.code}")
+                        Log.e("minchae", "exception.observe error.message : ${error.message}")
                     }
                 }
             }
