@@ -52,16 +52,24 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
                 }
             }
 
-            // args가 null이 아닐 때만 동작
-            args.region?.let {
-                // viewpager2 사용
-                vp2Tab.adapter = AreaListPagerAdapter(it.areaCode.toInt(), childFragmentManager, lifecycle)
+            // viewpager2 사용
+            vp2Tab.adapter = AreaListPagerAdapter(args.region?.areaCode?.toInt() ?: 1, childFragmentManager, lifecycle)
 
-                // 탭 추가
-                TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
-                    tab.text = tabTitle[position]
-                }.attach()
-            }
+            // 탭 추가
+            TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
+                tab.text = tabTitle[position]
+            }.attach()
+
+            // args가 null이 아닐 때만 동작
+//            args.region?.let {
+//                // viewpager2 사용
+//                vp2Tab.adapter = AreaListPagerAdapter(it.areaCode.toInt(), childFragmentManager, lifecycle)
+//
+//                // 탭 추가
+//                TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
+//                    tab.text = tabTitle[position]
+//                }.attach()
+//            }
         }
 
     }

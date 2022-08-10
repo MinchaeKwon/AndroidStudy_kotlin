@@ -29,16 +29,20 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         binding.bnvMain.setupWithNavController(navController)
 
-//        binding.bnvMain.setOnItemSelectedListener {
-//            when (it.itemId) {
-//                R.id.areaTabFragment -> {
-////                    val action = MainFragmentDirections.actionMainFragmentToAreaTabFragment(Region("1", "서울"))
-////                    navController.navigate(action)
+//        val navInflater = navController.navInflater
+//        val graph = navInflater.inflate(R.navigation.nav_graph)
 //
-////                    val argument = NavArgument.Builder().setDefaultValue(Region("1", "서울")).build()
+//        val argument = NavArgument.Builder().setDefaultValue(Region("1", "서울")).build()
+//        graph.addArgument("region", argument)
+//        navController.graph = graph
+
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            when(destination.id) {
+//                R.id.areaTabFragment -> {
+//                    val argument = NavArgument.Builder().setDefaultValue(Region("1", "서울")).build()
+//                    destination.addArgument("region", argument)
 //                }
 //            }
-//            true
 //        }
     }
 }
