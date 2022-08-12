@@ -102,4 +102,9 @@
         android:name="com.example.androidstudy_kotlin.view.ui.MotionFragment"
         android:label="fragment_motion"
         tools:layout="@layout/fragment_motion" />
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.PracticeFragment"
+        android:label="fragment_practice"
+        tools:layout="@layout/fragment_practice" />
 </navigation>

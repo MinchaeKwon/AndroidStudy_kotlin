@@ -10,7 +10,7 @@
         android:title="목록"
         android:icon="@drawable/ic_list_black_20" />
     <item
-        android:id="@+id/tmapFragment"
+        android:id="@+id/practiceFragment"
         android:title="연습"
         android:icon="@drawable/ic_perm_identity_black_20" />
 </menu>
