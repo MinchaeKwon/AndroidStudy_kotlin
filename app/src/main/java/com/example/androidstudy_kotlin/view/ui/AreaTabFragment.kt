@@ -11,10 +11,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.data.enum.Area
+import com.example.androidstudy_kotlin.data.model.FilterListData
 import com.example.androidstudy_kotlin.data.model.Region
 import com.example.androidstudy_kotlin.databinding.FragmentAreaTabBinding
+import com.example.androidstudy_kotlin.util.extension.rotateFilterArrow
 import com.example.androidstudy_kotlin.view.adapter.AreaListPagerAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
+import com.example.androidstudy_kotlin.view.dialog.FilterBottomDialog
 import com.google.android.material.tabs.TabLayoutMediator
 
 class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
@@ -32,6 +35,26 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
             // 이전 버튼 클릭
             btnTabBack.setOnClickListener {
                 findNavController().popBackStack()
+            }
+
+            // 지역 선택
+            tvArea.setOnClickListener {
+//                rotateFilterArrow(false, binding.ivHomeTabTitleDropdown)
+
+                val data = FilterListData("지역 선택", Area::class.java, mSelectedType)
+                val dialog = FilterBottomDialog.newInstance(data) {
+                    if (it == "dismiss") {
+//                        rotateFilterArrow(true, binding.ivHomeTabTitleDropdown)
+                    } else {
+                        mSelectedType = Area.valueOf(it)
+                        tvArea.text = mSelectedType.areaName
+
+                        val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
+//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName) // 에러 발생
+                        findNavController().navigate(action)
+                    }
+                }
+                dialog.show(childFragmentManager, dialog.tag)
             }
 
             spArea.adapter = spinnerAdapter // spinner adapter 연결
