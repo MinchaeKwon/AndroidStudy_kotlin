@@ -14,7 +14,8 @@
         android:layout_marginTop="30dp"
         android:text="지역선택"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

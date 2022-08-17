@@ -6,20 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.example.androidstudy_kotlin.view.adapter.RecyclerLoadStateAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.data.enum.Sorting
+import com.example.androidstudy_kotlin.data.model.FilterListData
 import com.example.androidstudy_kotlin.databinding.FragmentAreaListBinding
 import com.example.androidstudy_kotlin.util.extension.dpToPx
+import com.example.androidstudy_kotlin.util.extension.rotateFilterArrow
 import com.example.androidstudy_kotlin.view.adapter.AreaListInfoPagingAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
+import com.example.androidstudy_kotlin.view.dialog.FilterBottomDialog
 import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -108,21 +108,25 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
                 }
             }
 
-            // 정렬 스피너
-            spSort.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.sorting))
-            spSort.setSelection(1, false)
+            // 정렬 클릭시 바텀시트 띄우기
+            llListFilter.setOnClickListener {
+                rotateFilterArrow(false, ivListFilterDropdown)
 
-            spSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    mFilterType = Sorting.from(spSort.selectedItem.toString())
-                    viewModel.setArrange(mFilterType.optionValue)
+                val data = FilterListData("정렬 방법", Sorting::class.java, mFilterType)
+                val dialog = FilterBottomDialog.newInstance(data) {
+                    if (it == "dismiss") {
+                        rotateFilterArrow(true, ivListFilterDropdown)
+                    } else {
+                        Log.e("minchae", "정렬 선택함")
+                        mFilterType = Sorting.valueOf(it)
+                        tvListFilter.text = mFilterType.options
 
-                    infoAdapter.refresh()
+                        viewModel.setArrange(mFilterType.optionValue)
+                        infoAdapter.refresh()
+                    }
                 }
 
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
+                dialog.show(childFragmentManager, dialog.tag)
             }
         }
     }
@@ -133,9 +137,7 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
 }
 
 class ListDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
-
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect.bottom = space
     }
-
 }

@@ -1,12 +1,9 @@
 package com.example.androidstudy_kotlin.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.androidstudy_kotlin.R
@@ -28,52 +25,10 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         val tabTitle = resources.getStringArray(R.array.tab_title)
-        val areaArr = resources.getStringArray(R.array.area)
-        val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, areaArr)
 
         binding.apply {
-            // 이전 버튼 클릭
-            btnTabBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
-
-            // 지역 선택
-            tvArea.setOnClickListener {
-//                rotateFilterArrow(false, binding.ivHomeTabTitleDropdown)
-
-                val data = FilterListData("지역 선택", Area::class.java, mSelectedType)
-                val dialog = FilterBottomDialog.newInstance(data) {
-                    if (it == "dismiss") {
-//                        rotateFilterArrow(true, binding.ivHomeTabTitleDropdown)
-                    } else {
-                        mSelectedType = Area.valueOf(it)
-                        tvArea.text = mSelectedType.areaName
-
-                        val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
-//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName) // 에러 발생
-                        findNavController().navigate(action)
-                    }
-                }
-                dialog.show(childFragmentManager, dialog.tag)
-            }
-
-            spArea.adapter = spinnerAdapter // spinner adapter 연결
-            spArea.setSelection(0, false) // 서울 선택하고 onItemSelectedListener가 처음에는 동작하지 않도록 설정
-
-            // spinner 항목 선택시 동작 -> 지역 선택
-            spArea.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    mSelectedType = Area.from(spArea.selectedItem.toString())
-
-                    val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
-//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName) // 에러 발생
-                    findNavController().navigate(action)
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                }
-            }
+            mSelectedType = Area.from(args.region?.areaName ?: "서울")
+            tvSelectArea.text = mSelectedType.areaName
 
             // viewpager2 사용
             vp2Tab.adapter = AreaListPagerAdapter(args.region?.areaCode?.toInt() ?: 1, childFragmentManager, lifecycle)
@@ -83,16 +38,26 @@ class AreaTabFragment : BaseFragment<FragmentAreaTabBinding>() {
                 tab.text = tabTitle[position]
             }.attach()
 
-            // args가 null이 아닐 때만 동작
-//            args.region?.let {
-//                // viewpager2 사용
-//                vp2Tab.adapter = AreaListPagerAdapter(it.areaCode.toInt(), childFragmentManager, lifecycle)
-//
-//                // 탭 추가
-//                TabLayoutMediator(tlTab, vp2Tab) { tab, position ->
-//                    tab.text = tabTitle[position]
-//                }.attach()
-//            }
+            // 지역 선택 클릭시 바텀시트 띄우기
+            llSelectArea.setOnClickListener {
+                rotateFilterArrow(false, ivSelectArea)
+
+                val data = FilterListData("지역 선택", Area::class.java, mSelectedType)
+                val dialog = FilterBottomDialog.newInstance(data) {
+                    if (it == "dismiss") {
+                        rotateFilterArrow(true, ivSelectArea)
+                    } else {
+                        mSelectedType = Area.valueOf(it)
+                        tvSelectArea.text = mSelectedType.areaName
+
+                        val action = AreaTabFragmentDirections.actionAreaTabFragmentSelf(Region(mSelectedType.areaCode.toString(), mSelectedType.areaName))
+//                        action.region = Region(mSelectedType.areaCode.toString(), mSelectedType.areaName) // 에러 발생
+                        findNavController().navigate(action)
+                    }
+                }
+
+                dialog.show(childFragmentManager, dialog.tag)
+            }
         }
 
     }

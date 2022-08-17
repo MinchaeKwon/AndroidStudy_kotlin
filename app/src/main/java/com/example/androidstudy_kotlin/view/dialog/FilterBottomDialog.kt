@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.example.androidstudy_kotlin.data.model.FilterListData
 import com.example.androidstudy_kotlin.databinding.DialogFilterBottomBinding
-import com.example.androidstudy_kotlin.databinding.FragmentViewBinding
 import com.example.androidstudy_kotlin.util.extension.dpToPx
 import com.example.androidstudy_kotlin.view.ui.custom.FilterTextItem
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -20,7 +19,7 @@ class FilterBottomDialog: BottomSheetDialogFragment() {
 
     companion object {
         const val KEY_FilterListData = "KEY_FilterListData"
-        lateinit var clickResult: (String) -> Unit
+        lateinit var clickResult: (String) -> Unit // String은 파라미터 타입, Unit은 반환 타입
 
         fun <T: Enum<T>> newInstance(data: FilterListData<T>, callback: (String) -> Unit): FilterBottomDialog {
             val fragment = FilterBottomDialog()
@@ -34,20 +33,16 @@ class FilterBottomDialog: BottomSheetDialogFragment() {
         }
     }
 
-    private lateinit var binding: DialogFilterBottomBinding // view binding으로 바꿔야함
+    private lateinit var binding: DialogFilterBottomBinding
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
-
-        if (clickResult != null) {
-            clickResult.invoke("dismiss")
-        }
-
+        clickResult.invoke("dismiss")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DialogFilterBottomBinding.inflate(inflater, container, false)
-//        binding = DialogFilterBottomBinding.inflate(layoutInflater)
+//        binding = DialogFilterBottomBinding.inflate(inflater, container, false)
+        binding = DialogFilterBottomBinding.inflate(layoutInflater)
 
         val data = arguments?.getParcelable<FilterListData<*>>(KEY_FilterListData)
         binding.tvFilterDialogTitle.text = data?.title
@@ -67,25 +62,6 @@ class FilterBottomDialog: BottomSheetDialogFragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        val data = arguments?.getParcelable<FilterListData<*>>(KEY_FilterListData)
-//        binding.tvFilterDialogTitle.text = data?.title
-//
-//        data?.option?.enumConstants?.forEach { enum ->
-//            val item = FilterTextItem(binding.root.context)
-//
-//            item.setItem(enum.toString(), enum == data.isSelected)
-//            item.setOnClickListener {
-//                clickResult.invoke(enum.name)
-//                dismissAllowingStateLoss()
-//            }
-//
-//            binding.llFilterDialog.addView(item)
-//        }
-//    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
 
@@ -100,8 +76,7 @@ class FilterBottomDialog: BottomSheetDialogFragment() {
     private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
         //id = com.google.android.material.R.id.design_bottom_sheet for Material Components
         //id = android.support.design.R.id.design_bottom_sheet for support librares
-        val bottomSheet =
-            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
+        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
 
         val behavior: BottomSheetBehavior<*> = BottomSheetBehavior.from(bottomSheet!!)
         val layoutParams = bottomSheet!!.layoutParams

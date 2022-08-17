@@ -12,19 +12,36 @@
         android:id="@+id/tv_area_list_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:textSize="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="총 00" />
 
-    <Spinner
-        android:id="@+id/sp_sort"
+
+    <LinearLayout
+        android:id="@+id/ll_list_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/sorting"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tv_list_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:text="조회순" />
+
+        <ImageView
+            android:id="@+id/iv_list_filter_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/ic_dropdown_black_20" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_area_list"
