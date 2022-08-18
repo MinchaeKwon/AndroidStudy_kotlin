@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.enum.Area
-import com.example.androidstudy_kotlin.data.model.FilterListData
-import com.example.androidstudy_kotlin.data.model.Region
+import com.example.androidstudy_kotlin.enum.Area
+import com.example.androidstudy_kotlin.model.FilterListData
+import com.example.androidstudy_kotlin.model.Region
 import com.example.androidstudy_kotlin.databinding.FragmentAreaTabBinding
 import com.example.androidstudy_kotlin.util.extension.rotateFilterArrow
 import com.example.androidstudy_kotlin.view.adapter.AreaListPagerAdapter

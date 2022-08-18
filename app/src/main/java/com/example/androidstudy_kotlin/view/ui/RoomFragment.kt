@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.androidstudy_kotlin.data.AppDatabase
+import com.example.androidstudy_kotlin.db.AppDatabase
 import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.model.User
+import com.example.androidstudy_kotlin.db.entity.User
 import com.example.androidstudy_kotlin.databinding.FragmentRoomBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

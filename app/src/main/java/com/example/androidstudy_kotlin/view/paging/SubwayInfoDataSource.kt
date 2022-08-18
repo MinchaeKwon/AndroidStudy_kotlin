@@ -2,8 +2,8 @@ package com.example.androidstudy_kotlin.view.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.androidstudy_kotlin.data.AppRepository
-import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.network.repository.AppRepository
+import com.example.androidstudy_kotlin.network.data.Item
 
 class SubwayInfoDataSource(private val appRepository: AppRepository) : PagingSource<Int, Item>() {
     // 스와이프 해서 refresh나 데이터 업데이트 등 현재 목록을 대체할 새 데이터를 로드할 때 사용

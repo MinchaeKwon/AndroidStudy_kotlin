@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.data.remote.dto
+package com.example.androidstudy_kotlin.network.data
 
 /**
  * Dto 기본형식

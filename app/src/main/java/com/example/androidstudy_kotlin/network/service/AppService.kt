@@ -1,8 +1,7 @@
-package com.example.androidstudy_kotlin.data.remote.service
+package com.example.androidstudy_kotlin.network.service
 
-import com.example.androidstudy_kotlin.data.remote.dto.Dto
-import com.example.androidstudy_kotlin.data.remote.dto.Body
-import com.google.gson.JsonObject
+import com.example.androidstudy_kotlin.network.data.Dto
+import com.example.androidstudy_kotlin.network.data.Body
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

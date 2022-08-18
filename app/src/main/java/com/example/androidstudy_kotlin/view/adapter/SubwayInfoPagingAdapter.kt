@@ -7,7 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.databinding.ItemSubwayInfoBinding
 
 // 기존 RecyclerView.Adapter 구현과 동일, DiffUtil을 구현해야함

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.example.androidstudy_kotlin.data.model.FilterListData
+import com.example.androidstudy_kotlin.model.FilterListData
 import com.example.androidstudy_kotlin.databinding.DialogFilterBottomBinding
 import com.example.androidstudy_kotlin.util.extension.dpToPx
 import com.example.androidstudy_kotlin.view.ui.custom.FilterTextItem

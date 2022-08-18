@@ -1,16 +1,12 @@
 package com.example.androidstudy_kotlin.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
-import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.databinding.ItemAreaInfoBinding
 import com.example.androidstudy_kotlin.view.ui.AreaTabFragmentDirections
 

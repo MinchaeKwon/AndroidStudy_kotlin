@@ -1,7 +1,7 @@
-package com.example.androidstudy_kotlin.data.remote.dto
+package com.example.androidstudy_kotlin.network.data
 
 /**
- * Response error 데이타.
+ * Response error 데이터
  */
 data class ErrorData(
     var code: Int,

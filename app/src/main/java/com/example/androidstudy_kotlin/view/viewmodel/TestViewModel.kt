@@ -1,11 +1,10 @@
 package com.example.androidstudy_kotlin.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidstudy_kotlin.data.AppRepository
-import com.example.androidstudy_kotlin.data.remote.dto.Body
-import com.example.androidstudy_kotlin.data.remote.dto.Dto
+import com.example.androidstudy_kotlin.network.repository.AppRepository
+import com.example.androidstudy_kotlin.network.data.Body
+import com.example.androidstudy_kotlin.network.data.Dto
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import kotlinx.coroutines.launch
 

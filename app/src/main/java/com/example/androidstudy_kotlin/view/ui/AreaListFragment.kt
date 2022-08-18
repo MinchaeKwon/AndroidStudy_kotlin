@@ -12,8 +12,8 @@ import androidx.paging.LoadState
 import com.example.androidstudy_kotlin.view.adapter.RecyclerLoadStateAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidstudy_kotlin.data.enum.Sorting
-import com.example.androidstudy_kotlin.data.model.FilterListData
+import com.example.androidstudy_kotlin.enum.Sorting
+import com.example.androidstudy_kotlin.model.FilterListData
 import com.example.androidstudy_kotlin.databinding.FragmentAreaListBinding
 import com.example.androidstudy_kotlin.util.extension.dpToPx
 import com.example.androidstudy_kotlin.util.extension.rotateFilterArrow

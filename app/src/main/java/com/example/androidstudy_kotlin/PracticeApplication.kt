@@ -1,6 +1,7 @@
 package com.example.androidstudy_kotlin
 
 import android.app.Application
+import android.provider.Settings
 import android.webkit.WebView
 import com.example.androidstudy_kotlin.module.networkModule
 import com.example.androidstudy_kotlin.module.repositoryModule
@@ -36,5 +37,11 @@ class PracticeApplication : Application() {
     companion object {
         var context: PracticeApplication? = null
             private set
+
+        lateinit var appApplication: PracticeApplication
+
+        fun getAndroidID(): String {
+            return Settings.Secure.getString(appApplication.contentResolver, Settings.Secure.ANDROID_ID)
+        }
     }
 }

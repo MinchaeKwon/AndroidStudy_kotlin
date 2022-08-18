@@ -1,17 +1,12 @@
 package com.example.androidstudy_kotlin.view.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.example.androidstudy_kotlin.data.model.Item
-import com.example.androidstudy_kotlin.data.remote.dto.Body
-import com.example.androidstudy_kotlin.data.remote.dto.Dto
-import com.example.androidstudy_kotlin.data.AppRepository
+import com.example.androidstudy_kotlin.network.data.Item
+import com.example.androidstudy_kotlin.network.data.Body
+import com.example.androidstudy_kotlin.network.data.Dto
+import com.example.androidstudy_kotlin.network.repository.AppRepository
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
-import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 

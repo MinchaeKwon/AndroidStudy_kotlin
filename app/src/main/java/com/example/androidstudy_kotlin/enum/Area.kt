@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.data.enum
+package com.example.androidstudy_kotlin.enum
 
 enum class Area(val areaName: String, val areaCode: Int) {
     OPTION_01("서울", 1),

@@ -1,8 +1,6 @@
-package com.example.androidstudy_kotlin.data.common
+package com.example.androidstudy_kotlin.common
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation

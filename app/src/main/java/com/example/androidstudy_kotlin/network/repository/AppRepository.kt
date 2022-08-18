@@ -1,18 +1,17 @@
-package com.example.androidstudy_kotlin.data
+package com.example.androidstudy_kotlin.network.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.androidstudy_kotlin.view.paging.SubwayInfoDataSource
-import com.example.androidstudy_kotlin.data.model.Item
-import com.example.androidstudy_kotlin.data.remote.dto.Body
-import com.example.androidstudy_kotlin.data.remote.service.AppService
+import com.example.androidstudy_kotlin.network.data.Item
+import com.example.androidstudy_kotlin.network.data.Body
+import com.example.androidstudy_kotlin.network.service.AppService
 import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
-import com.example.androidstudy_kotlin.data.remote.dto.Dto as Dto
+import com.example.androidstudy_kotlin.network.data.Dto
 
 class AppRepository(private val appService: AppService) {
 

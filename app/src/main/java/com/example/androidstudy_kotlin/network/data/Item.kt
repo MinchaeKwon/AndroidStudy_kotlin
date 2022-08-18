@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.data.model
+package com.example.androidstudy_kotlin.network.data
 
 data class Item(
     var subwayRouteName: String,

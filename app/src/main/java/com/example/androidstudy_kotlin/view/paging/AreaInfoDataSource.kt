@@ -2,8 +2,8 @@ package com.example.androidstudy_kotlin.view.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.androidstudy_kotlin.data.AppRepository
-import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.network.repository.AppRepository
+import com.example.androidstudy_kotlin.network.data.Item
 
 class AreaInfoDataSource(private val appRepository: AppRepository,
                          private val areaCode: Int,

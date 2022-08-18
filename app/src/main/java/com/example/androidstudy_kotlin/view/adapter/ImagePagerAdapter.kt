@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.model.Item
+import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.databinding.ItemImageBinding
 
 class ImagePagerAdapter(val list: ArrayList<Item>): RecyclerView.Adapter<ImagePagerAdapter.ViewHolderPage>() {

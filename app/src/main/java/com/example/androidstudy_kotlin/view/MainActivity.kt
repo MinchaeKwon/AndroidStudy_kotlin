@@ -1,17 +1,12 @@
-package com.example.androidstudy_kotlin
+package com.example.androidstudy_kotlin.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.androidstudy_kotlin.data.model.Region
+import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.ActivityMainBinding
-import com.example.androidstudy_kotlin.view.ui.MainFragmentDirections
-import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

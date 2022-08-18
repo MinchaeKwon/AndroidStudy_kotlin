@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidstudy_kotlin.R
-import com.example.androidstudy_kotlin.data.model.Region
+import com.example.androidstudy_kotlin.model.Region
 import com.example.androidstudy_kotlin.databinding.FragmentMainBinding
 import com.example.androidstudy_kotlin.view.adapter.ImagePagerAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment

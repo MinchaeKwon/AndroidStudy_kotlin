@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.data.enum
+package com.example.androidstudy_kotlin.enum
 
 enum class Sorting(val options: String, val optionValue: String) {
     OPTION_01("제목순", "O"),
