@@ -68,7 +68,7 @@
         <argument
             android:name="region"
             android:defaultValue="@null"
-            app:argType="com.example.androidstudy_kotlin.data.model.Region"
+            app:argType="com.example.androidstudy_kotlin.model.Region"
             app:nullable="true" />
         <action
             android:id="@+id/action_areaTabFragment_self"

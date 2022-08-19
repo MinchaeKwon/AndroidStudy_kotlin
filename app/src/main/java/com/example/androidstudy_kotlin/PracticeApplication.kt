@@ -19,6 +19,8 @@ class PracticeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        appApplication = this
+
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
