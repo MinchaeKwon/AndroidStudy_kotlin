@@ -30,21 +30,18 @@
         android:id="@+id/tv_test1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
         android:text="고양이"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_practice1" />
+        app:layout_constraintEnd_toStartOf="@+id/tv_test2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
         android:text="고양이"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_test1"
-        app:layout_constraintStart_toEndOf="@+id/tv_test1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tv_test3"
@@ -83,5 +80,34 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_test3" />
+
+    <TextView
+        android:id="@+id/card_front"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:text="Front card"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vp_image_test" />
+
+    <TextView
+        android:id="@+id/card_back"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
+        android:background="@android:color/holo_green_light"
+        android:clickable="false"
+        android:gravity="center"
+        android:text="Back card"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vp_image_test" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
