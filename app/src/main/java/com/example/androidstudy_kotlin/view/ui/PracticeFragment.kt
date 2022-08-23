@@ -2,15 +2,12 @@ package com.example.androidstudy_kotlin.view.ui
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.animation.doOnEnd
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentPracticeBinding
@@ -24,6 +21,10 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
 
     private val viewModel: TestViewModel by viewModel()
     private val handler: Handler = Handler(Looper.getMainLooper())
+
+    private var isFront = true
+    private lateinit var flipFrontAnimatorSet: AnimatorSet
+    private lateinit var flipBackAnimatorSet: AnimatorSet
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,65 +80,28 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
             cardFront.cameraDistance = 8000 * scale
             cardBack.cameraDistance = 8000 * scale
 
-            val flipFrontAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_front) as AnimatorSet
-            val flipBackAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_back) as AnimatorSet
+            flipFrontAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_front) as AnimatorSet
+            flipBackAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_back) as AnimatorSet
 
-            cardFront.setOnClickListener {
-                Log.e("minchae", "1111111111")
-
-                flipFrontAnimatorSet.setTarget(cardFront)
-                flipBackAnimatorSet.setTarget(cardBack)
-
-                flipFrontAnimatorSet.start()
-                flipBackAnimatorSet.start()
-
-                cardFront.isClickable = false
-                cardBack.isClickable = true
+            clFlip.setOnClickListener {
+                isFront = if (isFront) {
+                    flipCard(cardBack, cardFront)
+                    false
+                } else {
+                    flipCard(cardFront, cardBack)
+                    true
+                }
             }
-
-//            cardBack.setOnClickListener {
-//                Log.e("minchae", "2222222222")
-//
-//                flipFrontAnimatorSet.setTarget(cardBack)
-//                flipBackAnimatorSet.setTarget(cardFront)
-//
-//                flipFrontAnimatorSet.start()
-//                flipBackAnimatorSet.start()
-//
-//                cardFront.isClickable = true
-//                cardBack.isClickable = false
-//            }
         }
     }
 
-    fun flipCard(context: Context, visibleView: View, inVisibleView: View) {
-        try {
-            visibleView.visibility = View.VISIBLE
-//            visibleView.visible()
+    // 뒤집기
+    private fun flipCard(visibleView: View, inVisibleView: View) {
+        flipFrontAnimatorSet.setTarget(inVisibleView)
+        flipBackAnimatorSet.setTarget(visibleView)
 
-            val scale = context.resources.displayMetrics.density
-            val cameraDist = 8000 * scale
-
-            visibleView.cameraDistance = cameraDist
-            inVisibleView.cameraDistance = cameraDist
-
-            // set animation
-            val flipFrontAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_front) as AnimatorSet
-            flipFrontAnimatorSet.setTarget(inVisibleView)
-
-            val flipBackAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.flip_back) as AnimatorSet
-            flipBackAnimatorSet.setTarget(visibleView)
-
-            flipFrontAnimatorSet.start()
-            flipBackAnimatorSet.start()
-
-            flipBackAnimatorSet.doOnEnd {
-                inVisibleView.visibility = View.INVISIBLE
-//                inVisibleView.gone()
-            }
-        } catch (e: Exception) {
-//            logHandledException(e)
-        }
+        flipFrontAnimatorSet.start()
+        flipBackAnimatorSet.start()
     }
 
     private val runnable = kotlinx.coroutines.Runnable {
