@@ -1,13 +1,14 @@
 package com.example.androidstudy_kotlin.view.ui
 
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
+import android.animation.*
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentPracticeBinding
@@ -20,7 +21,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
 
     private val viewModel: TestViewModel by viewModel()
+
     private val handler: Handler = Handler(Looper.getMainLooper())
+    private val runnable = Runnable {
+        binding.vpImageTest.setCurrentItemWithDuration(binding.vpImageTest.currentItem + 1, 500) }
 
     private var isFront = true
     private lateinit var flipFrontAnimatorSet: AnimatorSet
@@ -71,7 +75,7 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
                     val items = data.response.body.items.item
 
                     vpImageTest.adapter = ImagePagerAdapter(items)
-                    vpImageTest.currentItem = Integer.MAX_VALUE / 2 - Math.ceil(items.size.toDouble() / 2).toInt() // setCurrentItem()도 가능
+                    vpImageTest.setCurrentItemWithDuration(Integer.MAX_VALUE / 2 - Math.ceil(items.size.toDouble() / 2).toInt(), 500)
                 }
             }
 
@@ -104,13 +108,39 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
         flipBackAnimatorSet.start()
     }
 
-    private val runnable = kotlinx.coroutines.Runnable {
-        binding.vpImageTest.setCurrentItem(binding.vpImageTest.currentItem + 1, true)
+    // ViewPager2 애니메이션 속도 지정
+    fun ViewPager2.setCurrentItemWithDuration(
+        item: Int,
+        duration: Long,
+        interpolator: TimeInterpolator = AccelerateDecelerateInterpolator(),
+        pagePxWidth: Int = width // Default value taken from getWidth() from ViewPager2 view
+    ) {
+        val pxToDrag: Int = pagePxWidth * (item - currentItem)
+        val animator = ValueAnimator.ofInt(0, pxToDrag)
+        var previousValue = 0
+
+        animator.addUpdateListener { valueAnimator ->
+            val currentValue = valueAnimator.animatedValue as Int
+            val currentPxToDrag = (currentValue - previousValue).toFloat()
+            fakeDragBy(-currentPxToDrag)
+            previousValue = currentValue
+        }
+
+        animator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator?) { beginFakeDrag() }
+            override fun onAnimationEnd(animation: Animator?) { endFakeDrag() }
+            override fun onAnimationCancel(animation: Animator?) { /* Ignored */ }
+            override fun onAnimationRepeat(animation: Animator?) { /* Ignored */ }
+        })
+
+        animator.interpolator = interpolator
+        animator.duration = duration
+        animator.start()
     }
 
     override fun onPause() {
-        super.onPause()
         handler.removeCallbacks(runnable)
+        super.onPause()
     }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentPracticeBinding {
