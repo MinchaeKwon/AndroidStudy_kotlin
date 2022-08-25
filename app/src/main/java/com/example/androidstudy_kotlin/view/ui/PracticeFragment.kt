@@ -5,10 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.annotation.RequiresApi
 import androidx.viewpager2.widget.ViewPager2
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentPracticeBinding
@@ -24,7 +26,13 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
 
     private val handler: Handler = Handler(Looper.getMainLooper())
     private val runnable = Runnable {
-        binding.vpImageTest.setCurrentItemWithDuration(binding.vpImageTest.currentItem + 1, 500) }
+        Log.e("minchae", "practice runnable 33333333")
+
+        if (!isStop) {
+            binding.vpImageTest.setCurrentItemWithDuration(binding.vpImageTest.currentItem + 1, 500)
+        }
+    }
+    private var isStop = false
 
     private var isFront = true
     private lateinit var flipFrontAnimatorSet: AnimatorSet
@@ -62,6 +70,7 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
                 // 자동 슬라이드
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
+                        Log.e("minchae", "자동 슬라이드 ")
                         handler.removeCallbacks(runnable)
                         handler.postDelayed(runnable, 3000)
                     }
@@ -139,6 +148,7 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
     }
 
     override fun onPause() {
+        isStop = true
         handler.removeCallbacks(runnable)
         super.onPause()
     }
