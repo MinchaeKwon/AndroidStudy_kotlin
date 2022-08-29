@@ -114,4 +114,7 @@ dependencies {
 
     // Lottie
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    // indicator
+    implementation "com.tbuonomo:dotsindicator:4.3"
 }

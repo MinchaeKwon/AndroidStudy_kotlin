@@ -19,7 +19,7 @@ class ImagePagerAdapter(val list: ArrayList<Item>): RecyclerView.Adapter<ImagePa
         viewHolder.bind(list[position % list.size])
     }
 
-    override fun getItemCount(): Int = Integer.MAX_VALUE
+    override fun getItemCount(): Int = list.size
 
     class ViewHolderPage(parent: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)) {
         private val viewBind = ItemImageBinding.bind(itemView)

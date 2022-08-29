@@ -63,12 +63,12 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
                 addItemDecoration(itemDecoration)
 
                 // 자동 슬라이드
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageSelected(position: Int) {
-                        handler.removeCallbacks(runnable)
-                        handler.postDelayed(runnable, 3000)
-                    }
-                })
+//                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//                    override fun onPageSelected(position: Int) {
+//                        handler.removeCallbacks(runnable)
+//                        handler.postDelayed(runnable, 3000)
+//                    }
+//                })
             }
 
             viewModel.let {
@@ -78,7 +78,10 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
                     val items = data.response.body.items.item
 
                     vpImageTest.adapter = ImagePagerAdapter(items)
-                    vpImageTest.setCurrentItemWithDuration(Integer.MAX_VALUE / 2 - Math.ceil(items.size.toDouble() / 2).toInt(), 500)
+                    dotsIndicator.attachTo(vpImageTest) // indicator 연결
+
+                    // 무한 슬라이드일 경우 indicator 적용하면 무한 루프에 빠져서 제대로 작동하지 않음
+//                    vpImageTest.setCurrentItem(Integer.MAX_VALUE / 2 - Math.ceil(items.size.toDouble() / 2).toInt(), false)
                 }
             }
 

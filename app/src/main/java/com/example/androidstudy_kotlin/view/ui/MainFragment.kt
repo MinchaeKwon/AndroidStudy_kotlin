@@ -33,10 +33,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
                 findNavController().navigate(action)
             }
 
-            btnTmap.setOnClickListener {
-                findNavController().navigate(R.id.action_mainFragment_to_tmapFragment)
-            }
-
             btnMotion.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_motionFragment)
             }
