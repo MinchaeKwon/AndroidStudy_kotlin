@@ -1,7 +1,6 @@
 package com.example.androidstudy_kotlin.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.e("minchae", "main fragment on view created")
 
         binding.apply {
             btnViewBinding.setOnClickListener {
