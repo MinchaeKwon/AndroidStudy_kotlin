@@ -32,7 +32,6 @@ class AppRepository(private val appService: AppService) {
     }
 
     fun getAreaInfoPaging(areaCode: Int, arrange: MutableLiveData<String>, contentTypeId: Int?): Flow<PagingData<Item>> {
-
         return Pager(PagingConfig(pageSize = 10)) {
             AreaInfoDataSource(this, areaCode, arrange.value!!, contentTypeId)
         }.flow

@@ -82,24 +82,34 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
                     infoAdapter.submitData(lifecycle, data)
                 }
 
-                // lifecycleScope : activity, fragment에서 사용
-                lifecycleScope.launchWhenStarted {
-                    showLoading()
-
-                    it.getAreaInfoPaging().collect { data ->
-                        infoAdapter.submitData(data)
-                    }
-
-                    it.isLoading.observe(viewLifecycleOwner) { isLoading ->
-                        Log.e("minchae", "isLoading.observe : $isLoading")
-                        if (isLoading) showLoading() else dismissLoading()
-                    }
-
-                    it.exception.observe(viewLifecycleOwner) { error ->
-                        Log.e("minchae", "exception.observe error.code : ${error.code}")
-                        Log.e("minchae", "exception.observe error.message : ${error.message}")
-                    }
+                it.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                    Log.e("minchae", "isLoading.observe : $isLoading")
+                    if (isLoading) showLoading() else dismissLoading()
                 }
+
+                it.exception.observe(viewLifecycleOwner) { error ->
+                    Log.e("minchae", "exception.observe error.code : ${error.code}")
+                    Log.e("minchae", "exception.observe error.message : ${error.message}")
+                }
+
+                // paging 코드 변경하기 전에 사용
+//                lifecycleScope.launchWhenStarted { // lifecycleScope : activity, fragment에서 사용
+//                    showLoading()
+//
+//                    it.getAreaInfoPaging().collect { data ->
+//                        infoAdapter.submitData(data)
+//                    }
+//
+//                    it.isLoading.observe(viewLifecycleOwner) { isLoading ->
+//                        Log.e("minchae", "isLoading.observe : $isLoading")
+//                        if (isLoading) showLoading() else dismissLoading()
+//                    }
+//
+//                    it.exception.observe(viewLifecycleOwner) { error ->
+//                        Log.e("minchae", "exception.observe error.code : ${error.code}")
+//                        Log.e("minchae", "exception.observe error.message : ${error.message}")
+//                    }
+//                }
             }
 
             viewLifecycleOwner.lifecycleScope.launch {

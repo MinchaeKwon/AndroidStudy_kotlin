@@ -2,6 +2,7 @@ package com.example.androidstudy_kotlin.view.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.network.data.Body
 import com.example.androidstudy_kotlin.network.data.Dto
@@ -51,7 +52,7 @@ class AreaViewModel(
         viewModelScope.launch(exceptionHandler) {
             setLoading(true)
 
-            val result = appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId)
+            val result = appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId).cachedIn(viewModelScope)
             result.collect { data -> list.postValue(data) } // collectLatest도 사용 가능
 
             setLoading(false)
