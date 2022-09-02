@@ -13,6 +13,7 @@ import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.androidstudy_kotlin.R
@@ -41,9 +42,12 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
         val tMapView = TMapView(context)
 
         initAppbar()
-        initMoreBtn()
 
         binding.apply {
+            ivDetailHeaderBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+
             viewModel.let {
                 it.getTripDetailInfo(args.contentId, args.contentTypeId)
 
@@ -56,6 +60,8 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
                     tvTripDetailTitle.text = item.title
                     tvTripDetailAddr.text = item.addr1
                     tvTripDetailContent.text = item.overview
+
+                    initMoreBtn()
 
                     // Tmap
                     tMapView.setSKTMapApiKey("l7xx76fbfbdb39464c419da151dc1d9b5bb9")
@@ -99,21 +105,25 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
         }
     }
 
+    // 더보기 버튼 설정
     private fun initMoreBtn() {
+        // MainScope : UI 관련 작업을 처리하는 용도
         MainScope().launch {
             delay(300)
             try {
                 val lineCount = binding.tvTripDetailContent.layout.lineCount
+
                 if (lineCount > 0) {
                     if (binding.tvTripDetailContent.layout.getEllipsisCount(lineCount - 1) > 0) {
                         binding.tvTripDetailContentMore.isVisible = true
                     }
+
                     binding.tvTripDetailContentMore.setOnClickListener {
                         binding.tvTripDetailContent.maxLines = Int.MAX_VALUE
                         binding.tvTripDetailContentMore.isVisible = false
                     }
                 }
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -128,10 +138,13 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
                 if (binding.detailAppbarLayout.totalScrollRange == 0 || p1 == 0) {
                     activity?.window?.statusBarColor = Color.argb(0, 0, 0, 0)
                     binding.detailHeader.setBackgroundColor(Color.argb(0, 0, 0, 0))
+
                     val white = Color.argb(255, 255, 255, 255)
                     binding.ivDetailHeaderBack.setColorFilter(white)
+
                     return
                 }
+
                 val ratio = p1.toFloat() / binding.detailAppbarLayout.totalScrollRange.toFloat()
 
                 val rgb = (255 * Math.abs(ratio)).toInt()

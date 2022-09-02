@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-
+                android:drawableRight="@drawable/ic_add_black_20"
                 android:drawablePadding="6dp"
                 android:text="더보기"
                 android:textColor="@android:color/darker_gray"
