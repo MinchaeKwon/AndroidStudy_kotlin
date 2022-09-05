@@ -24,7 +24,6 @@ open class BaseViewModel : ViewModel() {
 
     open fun setError(code: Int, message: String?, throwable: Throwable?) {
         _exception.value = ErrorData(code, message, throwable)
-
     }
 
 //        private val _fetchState = MutableLiveData<FetchState>()

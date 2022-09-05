@@ -1,8 +1,8 @@
 package com.example.androidstudy_kotlin.module
 
-import com.example.androidstudy_kotlin.network.repository.AppRepository
 import com.example.androidstudy_kotlin.BuildConfig
 import com.example.androidstudy_kotlin.network.interceptor.RequestInterceptor
+import com.example.androidstudy_kotlin.network.repository.AppRepository
 import com.example.androidstudy_kotlin.network.service.AppService
 import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.TestViewModel

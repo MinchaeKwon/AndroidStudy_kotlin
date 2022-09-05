@@ -73,15 +73,15 @@
             app:popUpTo="@id/areaTabFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_areaTabFragment_to_areaDetailFragment"
-            app:destination="@id/areaDetailFragment" />
+            android:id="@+id/action_areaTabFragment_to_tripDetailFragment"
+            app:destination="@id/tripDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/areaDetailFragment"
+        android:id="@+id/tripDetailFragment"
         android:name="com.example.androidstudy_kotlin.view.ui.TripDetailFragment"
-        android:label="fragment_area_detail"
-        tools:layout="@layout/fragment_trip_detail">
+        android:label="fragment_trip_detail"
+        tools:layout="@layout/fragment_trip_detail2">
         <argument
             android:name="contentId"
             app:argType="integer" />

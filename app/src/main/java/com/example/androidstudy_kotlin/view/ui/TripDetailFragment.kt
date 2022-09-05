@@ -65,11 +65,11 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
 
                     // Tmap
                     tMapView.setSKTMapApiKey("l7xx76fbfbdb39464c419da151dc1d9b5bb9")
-                    tMapView.setCenterPoint(item.mapx!!, item.mapy!!)
+                    tMapView.setCenterPoint(item.mapx!!.toDouble(), item.mapy!!.toDouble())
                     llDetailLocation.addView(tMapView)
 
                     val marker = TMapMarkerItem()
-                    val point = TMapPoint(item.mapy, item.mapx)
+                    val point = TMapPoint(item.mapy.toDouble(), item.mapx.toDouble())
 
                     val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.icon_marker)
                     marker.icon = Bitmap.createScaledBitmap(bitmap, 100, 100, false)

@@ -138,6 +138,7 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
 
                 dialog.show(childFragmentManager, dialog.tag)
             }
+
         }
     }
 

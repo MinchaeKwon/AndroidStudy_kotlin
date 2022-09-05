@@ -38,7 +38,7 @@ class AreaListInfoPagingAdapter : PagingDataAdapter<Item, AreaListInfoPagingAdap
             binding.item = item
 
             itemView.setOnClickListener {
-                val action = AreaTabFragmentDirections.actionAreaTabFragmentToAreaDetailFragment(item.contentid!!, item.contenttypeid!!)
+                val action = AreaTabFragmentDirections.actionAreaTabFragmentToTripDetailFragment(item.contentid!!.toInt(), item.contenttypeid!!.toInt())
                 itemView.findNavController().navigate(action)
             }
         }
