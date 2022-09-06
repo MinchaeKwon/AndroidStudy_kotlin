@@ -3,22 +3,18 @@ package com.example.androidstudy_kotlin.view.ui
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentTripDetail2Binding
-import com.example.androidstudy_kotlin.databinding.FragmentTripDetailBinding
 import com.example.androidstudy_kotlin.view.base.BaseFragment
 import com.example.androidstudy_kotlin.view.viewmodel.TripDetailViewModel
 import com.google.android.material.appbar.AppBarLayout
@@ -131,12 +127,11 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
 
     private fun initAppbar() {
         binding.detailAppbarLayout.addOnOffsetChangedListener(object : AppBarLayout.OnOffsetChangedListener {
-            @RequiresApi(Build.VERSION_CODES.R)
             override fun onOffsetChanged(p0: AppBarLayout?, p1: Int) {
                 Log.d("aaa", " p1 = $p1")
 
                 if (binding.detailAppbarLayout.totalScrollRange == 0 || p1 == 0) {
-                    activity?.window?.statusBarColor = Color.argb(0, 0, 0, 0)
+                    requireActivity().window?.statusBarColor = Color.argb(0, 0, 0, 0)
                     binding.detailHeader.setBackgroundColor(Color.argb(0, 0, 0, 0))
 
                     val white = Color.argb(255, 255, 255, 255)
@@ -150,24 +145,24 @@ class TripDetailFragment : BaseFragment<FragmentTripDetail2Binding>() {
                 val rgb = (255 * Math.abs(ratio)).toInt()
                 val iconRgb = Math.abs((255 * Math.abs(ratio)) - 255).toInt()
 
-                activity?.window?.statusBarColor = Color.argb(rgb, 255, 255, 255)
+                requireActivity().window?.statusBarColor = Color.argb(rgb, 255, 255, 255)
                 binding.detailHeader.setBackgroundColor(Color.argb(rgb, 255, 255, 255))
 
                 val tintColor = Color.argb(iconRgb, iconRgb, iconRgb, iconRgb)
                 binding.ivDetailHeaderBack.setColorFilter(tintColor)
 
-                if (Math.abs(ratio) > 0.15) {
-                    activity?.window?.insetsController?.setSystemBarsAppearance(
-                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
-//                    activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
-                    activity?.window?.insetsController?.setSystemBarsAppearance(0, 0)
-//                    activity?.window?.decorView?.systemUiVisibility = 0
-                }
+//                if (Math.abs(ratio) > 0.15) {
+//                    requireActivity().window?.insetsController?.setSystemBarsAppearance(
+//                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+//
+////                    activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//                } else {
+//                    requireActivity().window?.insetsController?.setSystemBarsAppearance(0, 0)
+////                    activity?.window?.decorView?.systemUiVisibility = 0
+//                }
 
                 binding.tvDetailHeaderTitle.isVisible = Math.abs(ratio) >= 1.0
             }
-
         })
     }
 
