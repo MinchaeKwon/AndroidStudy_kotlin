@@ -26,7 +26,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="juvis_dialog" parent="Theme.AppCompat.Light.Dialog">
+    <style name="study_dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>

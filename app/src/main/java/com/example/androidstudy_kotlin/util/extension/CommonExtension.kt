@@ -1,6 +1,8 @@
 package com.example.androidstudy_kotlin.util.extension
 
 import android.app.Activity
+import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.WindowInsets
@@ -9,6 +11,8 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.androidstudy_kotlin.PracticeApplication
 
 fun Int.dpToPx(): Int = (this * PracticeApplication.context!!.resources.displayMetrics.density).toInt()
@@ -64,4 +68,25 @@ fun Activity.hideSystemUI() {
         @Suppress("DEPRECATION")
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
     }
+}
+
+fun Activity.hideStatusBar() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = 0x00000000  // transparent
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        val flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+        window.addFlags(flags)
+    }
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//        window.setDecorFitsSystemWindows(false)
+//    } else {
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
+//    }
 }
