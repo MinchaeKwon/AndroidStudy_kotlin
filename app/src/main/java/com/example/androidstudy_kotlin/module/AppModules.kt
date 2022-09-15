@@ -22,7 +22,8 @@ var networkModule = module {
     single {
         createWebService<AppService>(
             okHttpClient = get(),
-            baseUrl = "http://api.visitkorea.or.kr"
+//            baseUrl = "http://api.visitkorea.or.kr"
+            baseUrl = "https://picsum.photos/"
         )
     }
 

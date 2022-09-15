@@ -29,7 +29,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             }
 
             btnPaging.setOnClickListener {
-                val action = MainFragmentDirections.actionMainFragmentToAreaTabFragment(Region("1", "서울"))
+                val action = MainFragmentDirections.actionMainFragmentToRecyclerFragment()
                 findNavController().navigate(action)
             }
 

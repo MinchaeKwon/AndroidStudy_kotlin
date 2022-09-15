@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.androidstudy_kotlin.network.repository.AppRepository
 import com.example.androidstudy_kotlin.network.data.Body
 import com.example.androidstudy_kotlin.network.data.Dto
+import com.example.androidstudy_kotlin.network.data.ItemPic
 import com.example.androidstudy_kotlin.view.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -60,6 +61,28 @@ class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() 
             val response = appRepository.getAreaInfo(param)
             if (response.isSuccessful) {
                 list.postValue(response.body())
+            } else {
+                setError(response.code(), response.message(), null)
+            }
+
+            setLoading(false)
+        }
+    }
+
+    val picList = MutableLiveData<List<ItemPic>>()
+
+    fun getPictureList() {
+        val param = HashMap<String, String>().apply {
+            put("page", "1")
+            put("limit", "20")
+        }
+
+        viewModelScope.launch(exceptionHandler) {
+            setLoading(true)
+
+            val response = appRepository.getPicList(param)
+            if (response.isSuccessful) {
+                picList.postValue(response.body())
             } else {
                 setError(response.code(), response.message(), null)
             }

@@ -12,6 +12,7 @@ import com.example.androidstudy_kotlin.view.paging.AreaInfoDataSource
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import com.example.androidstudy_kotlin.network.data.Dto
+import com.example.androidstudy_kotlin.network.data.ItemPic
 
 class AppRepository(private val appService: AppService) {
 
@@ -39,5 +40,9 @@ class AppRepository(private val appService: AppService) {
 
     suspend fun getTripDetailInfo(query: HashMap<String, String>): Response<Dto<Body>> {
         return appService.tripDetailInfo(query)
+    }
+
+    suspend fun getPicList(query: HashMap<String, String>): Response<List<ItemPic>> {
+        return appService.picSumList(query)
     }
 }

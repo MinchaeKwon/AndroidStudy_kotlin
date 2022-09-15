@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mainFragment_to_motionFragment"
             app:destination="@id/motionFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_recyclerFragment"
+            app:destination="@id/recyclerFragment" />
     </fragment>
 
     <fragment
@@ -99,4 +102,9 @@
         android:name="com.example.androidstudy_kotlin.view.ui.PracticeFragment"
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice" />
+    <fragment
+        android:id="@+id/recyclerFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.RecyclerFragment"
+        android:label="fragment_recycler"
+        tools:layout="@layout/fragment_recycler" />
 </navigation>
