@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android" android:duration="600">
+<set xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 위치 -->
 <!--    <translate-->
 <!--        android:fromXDelta="200%"-->
@@ -23,11 +23,11 @@
 <!--        android:interpolator="@android:anim/decelerate_interpolator" />-->
 
     <translate
-        android:duration="2000"
+        android:duration="1000"
         android:fromXDelta="0.0"
-        android:fromYDelta="0.0"
+        android:fromYDelta="-50"
         android:toXDelta="0.0"
-        android:toYDelta="-80.0"
+        android:toYDelta="50"
         android:repeatMode="reverse"
         android:repeatCount="infinite" />
 </set>

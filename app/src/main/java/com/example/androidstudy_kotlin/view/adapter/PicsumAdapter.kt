@@ -48,12 +48,16 @@ class PicsumAdapter : RecyclerView.Adapter<PicsumAdapter.PicsumViewHolder>() {
             viewBind.apply {
                 itemImage.load(data.download_url) {
                     crossfade(true)
-                    transformations(RoundedCornersTransformation())
-//                    placeholder(R.drawable.ic_launcher_background)
+                    transformations(RoundedCornersTransformation(20f))
                 }
 
-//                val anim = AnimationUtils.loadAnimation(context, R.anim.anim_list_slide_in_right)
-//                itemImage.startAnimation(anim)
+                val anim = if (bindingAdapterPosition % 2 == 0) {
+                    AnimationUtils.loadAnimation(context, R.anim.anim_down)
+                } else {
+                    AnimationUtils.loadAnimation(context, R.anim.anim_up)
+                }
+
+                itemImage.startAnimation(anim)
             }
         }
     }

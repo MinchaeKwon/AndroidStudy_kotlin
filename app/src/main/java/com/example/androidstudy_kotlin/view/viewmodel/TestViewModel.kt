@@ -74,7 +74,7 @@ class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() 
     fun getPictureList() {
         val param = HashMap<String, String>().apply {
             put("page", "1")
-            put("limit", "20")
+            put("limit", "10")
         }
 
         viewModelScope.launch(exceptionHandler) {
