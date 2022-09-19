@@ -3,6 +3,7 @@ package com.example.androidstudy_kotlin.view.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.androidstudy_kotlin.PracticeApplication
 import com.example.androidstudy_kotlin.R
+import com.example.androidstudy_kotlin.common.AutoScrollHorizontalListLayoutManager
 import com.example.androidstudy_kotlin.databinding.FragmentRecyclerBinding
 import com.example.androidstudy_kotlin.view.adapter.PicsumAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
@@ -36,6 +38,8 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
 
         binding.apply {
             rvPicsum.apply {
+//                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = AutoScrollHorizontalListLayoutManager(context)
                 adapter = picsumAdapter
             }
 
@@ -48,7 +52,8 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
                     }
 
                     lifecycleScope.launch {
-                        autoScrollFeaturesList()
+//                        autoScrollFeaturesList()
+                        autoScroll()
                     }
                 }
             }
@@ -71,6 +76,53 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
 
         delay(DELAY_BETWEEN_SCROLL_MS)
         autoScrollFeaturesList()
+    }
+
+    val scrollHandler = Handler(Looper.getMainLooper())
+    private fun autoScroll() {
+        try {
+            var delaySpeed = 0L
+            var delaySpeed2 = 0L
+            val runnable: Runnable = object : Runnable {
+                var count = 0
+                override  fun run() {
+                    val size = picsumAdapter.itemCount
+
+                    val firstPosition = (binding.rvPicsum.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                    val lastPosition = (binding.rvPicsum.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                    if (lastPosition > count) { // 뒤로 이동시 포지션 변경처리
+                        count = lastPosition
+                    }
+
+                    if (count > 1 && (count - firstPosition) > 5) { // 앞으로 이동시 포지션 변경처리
+                        count = lastPosition
+                    }
+
+                    if (count == size) {    // 마지막 위치시 초기화 처리
+                        count = 0
+                        binding.rvPicsum.scrollToPosition(count)
+
+                        autoScroll()
+                    } else if (count < size) {
+                        binding.rvPicsum.smoothScrollToPosition(++count)
+                    }
+                    scrollHandler.postDelayed(this, delaySpeed2)
+
+                    delaySpeed = 1000L
+                    delaySpeed2 = 2003L
+                }
+            }
+            scrollHandler.postDelayed(runnable, delaySpeed)
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        scrollHandler.removeCallbacksAndMessages(null)
     }
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentRecyclerBinding {
