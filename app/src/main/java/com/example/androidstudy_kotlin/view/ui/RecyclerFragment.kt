@@ -33,6 +33,8 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
     private val viewModel: TestViewModel by viewModel()
     private val picsumAdapter = PicsumAdapter()
 
+    private var isScroll = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -52,8 +54,10 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
                     }
 
                     lifecycleScope.launch {
-//                        autoScrollFeaturesList()
+                        isScroll = true
                         autoScroll()
+
+//                        autoScrollFeaturesList()
                     }
                 }
             }
@@ -65,6 +69,7 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
             binding.rvPicsum.smoothScrollBy(SCROLL_DX, 0)
         } else {
             val firstPosition = (binding.rvPicsum.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
             if (firstPosition != RecyclerView.NO_POSITION) {
                 val currentList = picsumAdapter.differ.currentList
                 val secondPart = currentList.subList(0, firstPosition)
@@ -91,23 +96,20 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
                     val firstPosition = (binding.rvPicsum.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                     val lastPosition = (binding.rvPicsum.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
 
-                    if (lastPosition > count) { // 뒤로 이동시 포지션 변경처리
-                        count = lastPosition
-                    }
+                    if (lastPosition > count) count = lastPosition   //뒤로 이동시 포지션 변경처리
+                    if (count > 1 && (count - firstPosition) > 5) count = lastPosition   //앞으로 이동시 포지션 변경처리
 
-                    if (count > 1 && (count - firstPosition) > 5) { // 앞으로 이동시 포지션 변경처리
-                        count = lastPosition
-                    }
-
-                    if (count == size) {    // 마지막 위치시 초기화 처리
+                    if (count >= size) {    //마지막 위치시 초기화 처리
                         count = 0
+                        delaySpeed = 0L
+                        delaySpeed2 = 0L
                         binding.rvPicsum.scrollToPosition(count)
-
-                        autoScroll()
                     } else if (count < size) {
                         binding.rvPicsum.smoothScrollToPosition(++count)
                     }
+
                     scrollHandler.postDelayed(this, delaySpeed2)
+                    Log.e("minchae", "scrollHandler $count")
 
                     delaySpeed = 1000L
                     delaySpeed2 = 2003L
@@ -119,9 +121,19 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onResume() {
+        super.onResume()
 
+        if(picsumAdapter.itemCount > 0 && !isScroll) {
+            isScroll = true
+            autoScroll()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        isScroll = false
         scrollHandler.removeCallbacksAndMessages(null)
     }
 
