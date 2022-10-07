@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.databinding.ItemImageBinding
@@ -28,7 +29,7 @@ class ImagePagerAdapter(val list: ArrayList<Item>): RecyclerView.Adapter<ImagePa
             viewBind.apply {
                 itemImage.load(data.firstimage) {
                     crossfade(true)
-//                    transformations(RoundedCornersTransformation())
+                    transformations(RoundedCornersTransformation(20f))
 //                    placeholder(R.drawable.ic_launcher_background)
                 }
             }
