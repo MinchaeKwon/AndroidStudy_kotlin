@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.view.ui
+package com.example.androidstudy_kotlin.view.ui.trip
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -77,7 +77,7 @@ class AreaListFragment : BaseFragment<FragmentAreaListBinding>() {
             }
 
             viewModel.let {
-                it.getAreaInfoPaging2()
+                it.getAreaInfoPaging()
                 it.list.observe(viewLifecycleOwner) { data ->
                     infoAdapter.submitData(lifecycle, data)
                 }

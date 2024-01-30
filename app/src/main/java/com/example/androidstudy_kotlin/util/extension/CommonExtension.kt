@@ -2,8 +2,8 @@ package com.example.androidstudy_kotlin.util.extension
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -11,11 +11,23 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.androidstudy_kotlin.PracticeApplication
 
+private const val DENSITY_DEFAULT = DisplayMetrics.DENSITY_DEFAULT.toFloat()
+
 fun Int.dpToPx(): Int = (this * PracticeApplication.context!!.resources.displayMetrics.density).toInt()
+
+fun dpToPx(context: Context, dp: Int): Int {
+    val resources = context.resources
+    val metrics = resources.displayMetrics
+    return (dp * (metrics.densityDpi / DENSITY_DEFAULT)).toInt()
+}
+
+fun pxToDp(context: Context, px: Int): Float {
+    val resources = context.resources
+    val metrics = resources.displayMetrics
+    return px / (metrics.densityDpi / DENSITY_DEFAULT)
+}
 
 // 180도 회전
 fun rotateFilterArrow(isDefault: Boolean, view: View) {

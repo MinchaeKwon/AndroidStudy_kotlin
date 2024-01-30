@@ -11,22 +11,26 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.DialogProgressBinding
 import com.example.androidstudy_kotlin.util.extension.runOnUiThread
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
-    private var _binding: T? = null
-    val binding get() = _binding!!
+    lateinit var binding: T
 
     protected lateinit var mActivity: Activity
     protected lateinit var mContext: Context
 
+    private var isReCreate = true
+
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = getFragmentBinding(inflater, container)
+        if (isReCreate) {
+            binding = getFragmentBinding(inflater, container)
+        }
         return binding.root
     }
 
@@ -38,18 +42,21 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     private val mProgressDialog: AppCompatDialog by lazy {
         AppCompatDialog(context, R.style.AppcompatDialog_Transparent)
     }
 
+    // 화면갱신 여부
+    open fun setViewReCreate(isCreate: Boolean) {
+        isReCreate = isCreate
+    }
+
     open fun showLoading() {
         try {
             val binding = DialogProgressBinding.inflate(LayoutInflater.from(context))
             mProgressDialog.setContentView(binding.root)
-            //            Glide.with(this).load(R.raw.loading_icon).into(DrawableImageViewTarget(binding.ivFrameLoading))
 
             // UI 접근을 할 수 있음 -> 메인 스레드에서 동작
             runOnUiThread {
@@ -82,5 +89,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         return if (dialogInterface is Dialog) {
             dialogInterface.isShowing
         } else false
+    }
+
+    fun navigate(action: Int) {
+        findNavController().navigate(action)
+    }
+
+    fun navigate(action: Int, args: Bundle?) {
+        findNavController().navigate(action, args)
     }
 }

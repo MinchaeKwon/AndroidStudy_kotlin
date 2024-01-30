@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidstudy_kotlin.network.data.Item
 import com.example.androidstudy_kotlin.databinding.ItemAreaInfoBinding
-import com.example.androidstudy_kotlin.view.ui.AreaTabFragmentDirections
+import com.example.androidstudy_kotlin.view.ui.trip.AreaTabFragmentDirections
 
 class AreaListInfoPagingAdapter : PagingDataAdapter<Item, AreaListInfoPagingAdapter.ItemDataViewHolder>(differCallback) {
     companion object {

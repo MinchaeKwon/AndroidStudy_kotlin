@@ -27,11 +27,15 @@
         <action
             android:id="@+id/action_mainFragment_to_recyclerFragment"
             app:destination="@id/recyclerFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_ediyaMainFragment"
+            app:destination="@id/ediyaMainFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/viewFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.ViewFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.ViewFragment"
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <action
@@ -41,7 +45,7 @@
 
     <fragment
         android:id="@+id/dataFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.DataFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.DataFragment"
         android:label="fragment_data"
         tools:layout="@layout/fragment_data" >
         <action
@@ -51,7 +55,7 @@
 
     <fragment
         android:id="@+id/roomFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.RoomFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.RoomFragment"
         android:label="fragment_room"
         tools:layout="@layout/fragment_room" >
         <action
@@ -62,9 +66,10 @@
     <!-- 데이터를 받는 fragment에서 argument를 추가해야 함 -->
     <fragment
         android:id="@+id/areaTabFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.AreaTabFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.trip.AreaTabFragment"
         android:label="fragment_area_tab"
         tools:layout="@layout/fragment_area_tab">
+
         <argument
             android:name="region"
             android:defaultValue="@null"
@@ -82,7 +87,7 @@
 
     <fragment
         android:id="@+id/tripDetailFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.TripDetailFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.trip.TripDetailFragment"
         android:label="fragment_trip_detail"
         tools:layout="@layout/fragment_trip_detail2">
         <argument
@@ -92,19 +97,28 @@
             android:name="contentTypeId"
             app:argType="integer" />
     </fragment>
+
     <fragment
         android:id="@+id/motionFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.MotionFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.MotionFragment"
         android:label="fragment_motion"
         tools:layout="@layout/fragment_motion" />
+
     <fragment
         android:id="@+id/practiceFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.PracticeFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.PracticeFragment"
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice" />
+
     <fragment
         android:id="@+id/recyclerFragment"
-        android:name="com.example.androidstudy_kotlin.view.ui.RecyclerFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.trip.RecyclerFragment"
         android:label="fragment_recycler"
         tools:layout="@layout/fragment_recycler" />
+
+    <fragment
+        android:id="@+id/ediyaMainFragment"
+        android:name="com.example.androidstudy_kotlin.view.ui.test.EdiyaMainFragment"
+        android:label="fragment_ediya_main"
+        tools:layout="@layout/fragment_ediya_main" />
 </navigation>

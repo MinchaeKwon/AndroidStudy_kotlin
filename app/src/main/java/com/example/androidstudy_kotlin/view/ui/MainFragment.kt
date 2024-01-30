@@ -36,6 +36,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             btnMotion.setOnClickListener {
                 findNavController().navigate(R.id.action_mainFragment_to_motionFragment)
             }
+
+            btnEdiya.setOnClickListener {
+                findNavController().navigate(R.id.action_mainFragment_to_ediyaMainFragment)
+            }
         }
     }
 

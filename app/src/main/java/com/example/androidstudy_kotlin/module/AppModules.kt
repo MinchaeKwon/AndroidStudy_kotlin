@@ -3,8 +3,10 @@ package com.example.androidstudy_kotlin.module
 import com.example.androidstudy_kotlin.BuildConfig
 import com.example.androidstudy_kotlin.network.interceptor.RequestInterceptor
 import com.example.androidstudy_kotlin.network.repository.AppRepository
+import com.example.androidstudy_kotlin.network.repository.MainRepository
 import com.example.androidstudy_kotlin.network.service.AppService
 import com.example.androidstudy_kotlin.view.viewmodel.AreaViewModel
+import com.example.androidstudy_kotlin.view.viewmodel.MainViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.TestViewModel
 import com.example.androidstudy_kotlin.view.viewmodel.TripDetailViewModel
 import okhttp3.OkHttpClient
@@ -22,7 +24,8 @@ var networkModule = module {
     single {
         createWebService<AppService>(
             okHttpClient = get(),
-            baseUrl = "http://api.visitkorea.or.kr"
+            baseUrl = "https://memapp.ediya.com/"
+//            baseUrl = "http://api.visitkorea.or.kr"
 //            baseUrl = "https://picsum.photos/"
         )
     }
@@ -53,42 +56,12 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient, baseUrl: Str
 
 var repositoryModule = module {
     factory { AppRepository(appService = get()) }
+    factory { MainRepository(get()) }
 }
 
 var viewModelModule = module {
     viewModel { TestViewModel(appRepository = get()) }
     viewModel { (areaCode: Int, contentTypeId: Int?) -> AreaViewModel(appRepository = get(), areaCode, contentTypeId) }
     viewModel { TripDetailViewModel(appRepository = get()) }
+    viewModel { MainViewModel(get()) }
 }
-
-//var networkModule = module {
-//    single {
-//        Retrofit.Builder()
-////            .baseUrl("http://apis.data.go.kr")
-//            .baseUrl("http://api.visitkorea.or.kr")
-//            .addConverterFactory(GsonConverterFactory.create())
-////            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-//            .client(get())
-//            .build()
-//    }
-//
-//    single {
-//        OkHttpClient().newBuilder()
-//            .addInterceptor(RequestInterceptor(get()))
-//            .addInterceptor(
-//                HttpLoggingInterceptor().apply {
-//                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-//                }
-//            )
-//            .build()
-//    }
-//}
-//
-//var repositoryModule = module {
-//    single { AppRepository(get()) }
-//}
-//
-//var viewModelModule = module {
-//    single { BaseViewModel() }
-//    factory { AreaViewModel(get()) }
-//}

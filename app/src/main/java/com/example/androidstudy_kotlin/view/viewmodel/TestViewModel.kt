@@ -55,18 +55,18 @@ class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() 
             put("MobileOS", "AND")
         }
 
-        viewModelScope.launch(exceptionHandler) {
-            setLoading(true)
-
-            val response = appRepository.getAreaInfo(param)
-            if (response.isSuccessful) {
-                list.postValue(response.body())
-            } else {
-                setError(response.code(), response.message(), null)
-            }
-
-            setLoading(false)
-        }
+//        viewModelScope.launch(exceptionHandler) {
+//            setLoading(true)
+//
+//            val response = appRepository.getAreaInfo(param)
+//            if (response.isSuccessful) {
+//                list.postValue(response.body())
+//            } else {
+//                setError(response.code(), response.message(), null)
+//            }
+//
+//            setLoading(false)
+//        }
     }
 
     val picList = MutableLiveData<List<ItemPic>>()
@@ -77,17 +77,17 @@ class TestViewModel(private val appRepository: AppRepository) : BaseViewModel() 
             put("limit", "10")
         }
 
-        viewModelScope.launch(exceptionHandler) {
-            setLoading(true)
-
-            val response = appRepository.getPicList(param)
-            if (response.isSuccessful) {
-                picList.postValue(response.body())
-            } else {
-                setError(response.code(), response.message(), null)
-            }
-
-            setLoading(false)
-        }
+//        viewModelScope.launch(exceptionHandler) {
+//            setLoading(true)
+//
+//            val response = appRepository.getPicList(param)
+//            if (response.isSuccessful) {
+//                picList.postValue(response.body())
+//            } else {
+//                setError(response.code(), response.message(), null)
+//            }
+//
+//            setLoading(false)
+//        }
     }
 }

@@ -48,15 +48,15 @@ class AreaViewModel(
         return appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId)
     }
 
-    fun getAreaInfoPaging2() {
-        viewModelScope.launch(exceptionHandler) {
-            setLoading(true)
-
-            val result = appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId).cachedIn(viewModelScope)
-            result.collect { data -> list.postValue(data) } // collectLatest도 사용 가능
-
-            setLoading(false)
-        }
-    }
+//    fun getAreaInfoPaging2() {
+//        viewModelScope.launch(exceptionHandler) {
+//            setLoading(true)
+//
+//            val result = appRepository.getAreaInfoPaging(areaCode, _arrange, contentTypeId).cachedIn(viewModelScope)
+//            result.collect { data -> list.postValue(data) } // collectLatest도 사용 가능
+//
+//            setLoading(false)
+//        }
+//    }
 
 }

@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.view.ui
+package com.example.androidstudy_kotlin.view.ui.test
 
 import android.animation.*
 import android.os.Bundle
@@ -13,7 +13,6 @@ import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.databinding.FragmentPracticeBinding
 import com.example.androidstudy_kotlin.view.adapter.ImagePagerAdapter
 import com.example.androidstudy_kotlin.view.base.BaseFragment
-import com.example.androidstudy_kotlin.view.ui.custom.HorizontalMarginItemDecoration
 import com.example.androidstudy_kotlin.view.ui.custom.SlideTransformer
 import com.example.androidstudy_kotlin.view.viewmodel.TestViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -136,12 +135,12 @@ class PracticeFragment : BaseFragment<FragmentPracticeBinding>() {
             previousValue = currentValue
         }
 
-        animator.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) { beginFakeDrag() }
-            override fun onAnimationEnd(animation: Animator?) { endFakeDrag() }
-            override fun onAnimationCancel(animation: Animator?) { /* Ignored */ }
-            override fun onAnimationRepeat(animation: Animator?) { /* Ignored */ }
-        })
+//        animator.addListener(object : Animator.AnimatorListener {
+//            override fun onAnimationStart(animation: Animator?) { beginFakeDrag() }
+//            override fun onAnimationEnd(animation: Animator?) { endFakeDrag() }
+//            override fun onAnimationCancel(animation: Animator?) { /* Ignored */ }
+//            override fun onAnimationRepeat(animation: Animator?) { /* Ignored */ }
+//        })
 
         animator.interpolator = interpolator
         animator.duration = duration

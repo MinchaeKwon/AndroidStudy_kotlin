@@ -19,7 +19,7 @@
         app:lottie_rawRes="@raw/airplane"
         app:lottie_loop="true" />
 
-    <android.support.constraint.Guideline
+    <androidx.constraintlayout.widget.Guideline
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/guideline_rocket_content"

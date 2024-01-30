@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_trip_detail_scene"
-    tools:context=".view.ui.TripDetailFragment">
+    tools:context=".view.ui.trip.TripDetailFragment">
 
     <ImageView
         android:id="@+id/iv_detail_img"

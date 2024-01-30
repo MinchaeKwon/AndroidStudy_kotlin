@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.androidstudy_kotlin.view.ui.AreaListFragment
+import com.example.androidstudy_kotlin.view.ui.trip.AreaListFragment
 
 class AreaListPagerAdapter(
     private val areaCode: Int,

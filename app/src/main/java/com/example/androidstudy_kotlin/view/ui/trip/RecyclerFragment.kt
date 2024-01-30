@@ -1,4 +1,4 @@
-package com.example.androidstudy_kotlin.view.ui
+package com.example.androidstudy_kotlin.view.ui.trip
 
 import android.os.Bundle
 import android.os.Handler
@@ -7,14 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
-import com.example.androidstudy_kotlin.PracticeApplication
-import com.example.androidstudy_kotlin.R
 import com.example.androidstudy_kotlin.common.AutoScrollHorizontalListLayoutManager
 import com.example.androidstudy_kotlin.databinding.FragmentRecyclerBinding
 import com.example.androidstudy_kotlin.view.adapter.PicsumAdapter
